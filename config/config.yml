@@ -1,0 +1,14 @@
+defaults: &defaults
+  support_email: FCC Support <mike@skeen.ca>
+  site_name: Freelancer Control Centre
+  use_analytics: 0
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  use_analytics: 1
