@@ -1,0 +1,21 @@
+.modal-content {
+
+  .field {
+    width: 100%;
+  }
+
+  label {
+    display: inline-block;
+    width: 25%;
+    vertical-align: top;
+  }
+
+  input[type="text"] {
+    width: 55%;
+  }
+
+  .field_with_errors {
+    display: inline;
+  }
+
+}

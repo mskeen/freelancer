@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'user can sign in' do
   scenario 'successful login' do
-    user = FactoryGirl.create(:user)
+    user = FactoryGirl.build(:user)
     user.confirmed_at = Time.now
     user.save
 
@@ -14,6 +14,7 @@ feature 'user can sign in' do
     fill_in 'Password', with: 'password'
     click_on 'Log in'
 
-    expect(page).to have_title "Dashboard - #{Rails.application.secrets.site_name}"
+    expect(page).to have_title 'Dashboard - ' \
+      "#{Rails.application.secrets.site_name}"
   end
 end

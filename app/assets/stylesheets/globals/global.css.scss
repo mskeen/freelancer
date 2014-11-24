@@ -1,0 +1,42 @@
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+       -moz-box-shadow:inset $top $left $blur $color;
+            box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+       -moz-box-shadow: $top $left $blur $color;
+            box-shadow: $top $left $blur $color;
+  }
+}
+
+.center { text-align: center; }
+.clear { clear: both; }
+.spacer-20 { margin-top: 20px; }
+.spacer-40 { margin-top: 40px; }
+.spacer-60 { margin-top: 60px; }
+.spacer-bottom-20 { margin-bottom: 20px; }
+.spacer-bottom-40 { margin-bottom: 40px; }
+.spacer-bottom-60 { margin-bottom: 60px; }
+.spacer-left-20 { margin-left: 20px; }
+.spacer-left-40 { margin-left: 40px; }
+.spacer-left-60 { margin-left: 60px; }
+.muted {
+  color: $dark-grey;
+  a { color: $dark-grey; text-decoration: underline;}
+}
+
+footer ul {
+  float: right;
+  li {
+    padding-left: 20px;
+    display: inline;
+  }
+}

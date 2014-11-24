@@ -1,7 +1,7 @@
 <% title "Home" %>
+<% heading "Welcome to #{Rails.application.secrets.site_name}!" %>
 
 <%= content_for :jumbotron do %>
-  <!-- Main jumbotron for a primary marketing message or call to action -->
   <div class="jumbotron">
     <div class="container">
       <h1>Hello, world!</h1>
@@ -11,9 +11,6 @@
   </div>
 <% end %>
 
-<h1><%= Rails.application.secrets.site_name %></h1>
-
-<!-- Example row of columns -->
 <div class="row">
   <div class="col-md-4">
     <h2>Heading</h2>

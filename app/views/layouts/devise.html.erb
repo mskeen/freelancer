@@ -20,23 +20,27 @@
   data-controller="<%= controller.controller_path %>"
   data-action="<%= controller.action_name %>">
 
-<%= render partial: "shared/nav" %>
-
-<%= yield :jumbotron %>
-
 <div class="container">
+  <div class="header">
+    <%= link_to Rails.application.secrets.site_name, root_url  %>
+  </div>
+  <div class="content">
 
-  <%= yield :heading %>
+    <%= yield :heading %>
+    <%= render "shared/flash" %>
+    <%= yield %>
+    <hr>
 
-  <%= render partial: "shared/flash" %>
+  </div>
+  <p class="center muted">
+    By signing up, you agree to our
+    <%= link_to "Privacy Policy", "#" %> and
+    <%= link_to "Terms of Service", "#" %>.
+  </p>
 
-  <%= yield %>
-
-  <hr>
-  <footer>
-    <p>&copy; 2014 Mike Skeen</p>
-  </footer>
-</div> <!-- /container -->
+</div>
 
 </body>
 </html>
+
+

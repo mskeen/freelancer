@@ -1,0 +1,26 @@
+body.account {
+
+  background-color: $grey;
+
+  .header  {
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+
+    img.logo {
+      width: 260px;
+    }
+  }
+
+  .content {
+    h1 { font-size: 25px; }
+    background-color: $off-white;
+    border: 1px solid #CCC;
+    width: 500px;
+    margin: 20px auto;
+    padding: 0 30px;
+    @include border-radius(6px);
+    @include box-shadow(1px, 4px, 5px, rgba(0,0,0,0.3));
+  }
+
+}

@@ -1,4 +1,8 @@
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
-@import "bootswatch/cerulean/variables";
 @import "bootstrap-sprockets";
+@import "bootswatch/cerulean/variables";
 @import "bootstrap";
+@import "jquery-ui";
+@import "globals/*";
+@import "components/*";
+@import "sections/*";
