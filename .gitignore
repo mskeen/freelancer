@@ -15,8 +15,8 @@
 /log/*.log
 /tmp
 
-# don't include the real database.yml
-/config/database.yml
+# don't include the real secrets.yml
+/config/secrets.yml
 
 # ignore the sublime workspace (but allow the project)
 *.sublime-workspace

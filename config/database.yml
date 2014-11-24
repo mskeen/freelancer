@@ -1,0 +1,17 @@
+default: &default
+  adapter: <%= Rails.application.secrets.db['adapter'] %>
+  encoding: <%= Rails.application.secrets.db['encoding'] %>
+  pool: <%= Rails.application.secrets.db['pool'] %>
+  username: <%= Rails.application.secrets.db['username'] %>
+  password: <%= Rails.application.secrets.db['password'] %>
+  socket: <%= Rails.application.secrets.db['socket'] %>
+  database: <%= Rails.application.secrets.database %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
