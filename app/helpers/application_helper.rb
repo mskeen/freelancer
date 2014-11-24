@@ -2,9 +2,9 @@ module ApplicationHelper
   def title(page_title)
     provide(:title) do
       if page_title.empty?
-        APP_CONFIG['site_name']
+        Rails.application.secrets.site_name
       else
-        "#{page_title} - #{APP_CONFIG['site_name']}"
+        "#{page_title} - #{Rails.application.secrets.site_name}"
       end
     end
   end

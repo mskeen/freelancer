@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.8'
 gem 'mysql2'
+gem 'devise'
 
 gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass', '3.2.0'
@@ -17,8 +18,10 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0',          group: :doc
+
+group :doc do
+  gem 'sdoc', '~> 0.4.0'
+end
 
 group :development do
   gem 'slop'
@@ -37,6 +40,7 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'capybara', '~> 2.4.4'
+  gem 'factory_girl_rails'
 end
 
 gem 'lookup_column', git: 'git://github.com/mskeen/lookup_column.git'

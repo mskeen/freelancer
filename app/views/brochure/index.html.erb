@@ -11,7 +11,7 @@
   </div>
 <% end %>
 
-<h1><%= APP_CONFIG['site_name'] %></h1>
+<h1><%= Rails.application.secrets.site_name %></h1>
 
 <!-- Example row of columns -->
 <div class="row">
