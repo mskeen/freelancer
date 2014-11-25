@@ -20,3 +20,6 @@
 
 # ignore the sublime workspace (but allow the project)
 *.sublime-workspace
+
+# ignore simplecov files
+/coverage

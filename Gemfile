@@ -38,6 +38,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'simplecov', :require => false
   gem 'database_cleaner'
   gem 'capybara', '~> 2.4.4'
   gem 'factory_girl_rails'
