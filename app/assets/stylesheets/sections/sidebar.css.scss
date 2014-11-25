@@ -1,0 +1,12 @@
+#sidebar {
+  float: left;
+  width: 110px;
+  text-align: center;
+  padding-top: 20px;
+  height: 100%;
+  background-color: #022f5a;
+  ul {
+    padding: 0;
+    li { list-style-type: none; }
+  }
+}

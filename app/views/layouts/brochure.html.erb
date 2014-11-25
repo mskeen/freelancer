@@ -20,15 +20,19 @@
   data-controller="<%= controller.controller_path %>"
   data-action="<%= controller.action_name %>">
 
-  <%= render partial: "shared/nav", locals: { fluid: true } %>
+<%= render partial: "shared/nav", locals: { fluid: false } %>
 
-  <%= render partial: "shared/sidebar" %>
-  <div class="container-fluid page-content" >
-    <%= render partial: "shared/flash" %>
-    <%= yield :heading %>
-    <%= yield %>
-    <%= render partial: "shared/footer" %>
-  </div>
+<%= yield :jumbotron %>
+
+<div class="container">
+
+  <%= yield :heading %>
+
+  <%= render partial: "shared/flash" %>
+
+  <%= yield %>
+
+  <%= render partial: "shared/footer" %>
 
 </div>
 
