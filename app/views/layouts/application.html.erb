@@ -16,7 +16,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="<%= controller.controller_path %>"
+<body class="application"
   data-controller="<%= controller.controller_path %>"
   data-action="<%= controller.action_name %>">
 
@@ -32,11 +32,9 @@
 
   <%= yield %>
 
-  <hr>
-  <footer>
-    <p>&copy; 2014 Mike Skeen</p>
-  </footer>
-</div> <!-- /container -->
+  <%= render partial: "shared/footer" %>
+
+</div>
 
 </body>
 </html>
