@@ -15,6 +15,6 @@ feature 'user can sign in' do
     click_on 'Sign in'
 
     expect(page).to have_title 'Dashboard - ' \
-      "#{Rails.application.secrets.site_name}"
+      "#{AppConfig.site_name}"
   end
 end

@@ -23,21 +23,20 @@ module Freelancer
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'Central Time (US & Canada)'
 
+    config.autoload_paths += %W(#{config.root}/lib)
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-    config.action_mailer.default_url_options = { host: Rails.application.secrets.host }
+    config.action_mailer.default_url_options = { host: AppConfig.host }
 
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
-      address:        Rails.application.secrets.smtp['address'],
-      port:           Rails.application.secrets.smtp['port'],
-      domain:         Rails.application.secrets.smtp['domain'],
-      authentication: Rails.application.secrets.smtp['authentication'],
-      user_name:      Rails.application.secrets.smtp['user_name'],
-      password:       Rails.application.secrets.smtp['password']
+      address:        AppConfig.smtp['address'],
+      port:           AppConfig.smtp['port'],
+      domain:         AppConfig.smtp['domain'],
+      authentication: AppConfig.smtp['authentication'],
+      user_name:      AppConfig.smtp['user_name'],
+      password:       AppConfig.smtp['password']
     }
-    config.action_mailer.raise_delivery_errors = true
-    config.action_mailer.perform_deliveries = true
   end
 end
