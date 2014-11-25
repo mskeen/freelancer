@@ -4,5 +4,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  belongs_to :organization
+
   validates :name, presence: true
+
+  accepts_nested_attributes_for :organization
 end

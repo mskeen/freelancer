@@ -16,6 +16,14 @@
   </div>
 
   <div class="form-group">
+    <% resource.build_organization if resource.organization.nil? %>
+    <%= f.fields_for :organization do |org| %>
+      <%= org.label :name, "Organization Name" %>
+      <%= org.text_field :name, class: "form-control", placeholder: "e.g. Widget Co." %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
     <%= f.label :password %>
     <%= f.password_field :password, class: "form-control" %>
   </div>
