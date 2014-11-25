@@ -14,7 +14,6 @@ feature 'user can sign in' do
     fill_in 'Password', with: 'password'
     click_on 'Sign in'
 
-    expect(page).to have_title 'Dashboard - ' \
-      "#{AppConfig.site_name}"
+    expect(page).to have_title "Dashboard - #{AppConfig.site_name}"
   end
 end

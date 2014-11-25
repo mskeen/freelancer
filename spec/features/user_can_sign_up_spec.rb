@@ -2,29 +2,44 @@ require 'rails_helper'
 
 feature 'user can sign up' do
   scenario 'successfully' do
-    email = 'a@sample.com'
-    organization_name = "Widgets Co."
+    user = FactoryGirl.build(:user)
     visit root_path
 
     click_on 'Sign Up'
 
-    fill_in 'Name', with: 'first last'
-    fill_in 'Email', with: email
-    fill_in 'Organization Name', with: organization_name
-    fill_in 'Password', with: 'password'
+    fill_in 'Name', with: user.name
+    fill_in 'Email', with: user.email
+    fill_in 'Organization Name', with: user.organization.name
+    fill_in 'Password', with: user.password
     click_on 'Sign up'
 
-    user = User.find_by_email(email)
-    user.confirmed_at = Time.now
-    user.save
+    new_user = User.find_by_email(user.email)
+    new_user.confirmed_at = Time.now
+    new_user.save
 
     click_on 'Log In'
 
-    fill_in 'Email', with: email
-    fill_in 'Password', with: 'password'
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
     click_on 'Sign in'
 
     expect(page).to have_title "Dashboard - #{AppConfig.site_name}"
-    expect(page).to have_text organization_name
+    expect(page).to have_text user.organization.name
+  end
+
+  scenario 'unsuccessfuly' do
+    user = FactoryGirl.build(:user)
+    visit root_path
+
+    click_on 'Sign Up'
+
+    fill_in 'Name', with: user.name
+    fill_in 'Email', with: user.email
+    fill_in 'Organization Name', with: ''
+    fill_in 'Password', with: user.password
+    click_on 'Sign up'
+
+    expect(page).to have_text "Organization name can't be blank"
+
   end
 end
