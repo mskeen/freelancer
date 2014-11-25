@@ -40,3 +40,7 @@ footer ul {
     display: inline;
   }
 }
+
+a {
+  &:hover { text-decoration: none; }
+}

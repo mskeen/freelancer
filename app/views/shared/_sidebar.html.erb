@@ -1,8 +1,46 @@
 <div id="sidebar">
   <ul>
-    <li><%= link_to 'Dashboard', '#' %></li>
-    <li><%= link_to 'Uptime', '#' %></li>
-    <li><%= link_to 'Events', '#' %></li>
-    <li><%= link_to 'Account', '#' %></li>
+    <%= link_to root_path do %>
+      <li>
+        <i class="fa fa-area-chart"></i><br/>
+        Dashboard
+      </li>
+    <% end %>
+    <%= link_to '#' do %>
+      <li>
+        <i class="fa fa-clock-o"></i><br/>
+        Timesheet
+      </li>
+    <% end %>
+    <%= link_to '#' do %>
+      <li>
+        <i class="fa fa-dollar"></i><br/>
+        Invoices
+      </li>
+    <% end %>
+    <%= link_to '#' do %>
+      <li>
+        <i class="fa fa-tachometer"></i><br/>
+        Uptime
+      </li>
+    <% end %>
+    <%= link_to '#' do %>
+      <li>
+        <i class="fa fa-check-square"></i><br/>
+        Events
+      </li>
+    <% end %>
+    <%= link_to '#' do %>
+      <li>
+        <i class="fa fa-users"></i><br/>
+        Users
+      </li>
+    <% end %>
+    <%= link_to '#' do %>
+      <li>
+        <i class="fa fa-cog"></i><br/>
+        Account
+      </li>
+    <% end %>
   </ul>
 </div>
