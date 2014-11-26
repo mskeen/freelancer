@@ -1,15 +1,4 @@
-<%= bootstrap_form_for(@event_tracker) do |f| %>
-  <% if @event_tracker.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@event_tracker.errors.count, "error") %> prohibited this event_tracker from being saved:</h2>
-
-      <ul>
-      <% @event_tracker.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= bootstrap_form_for(@event_tracker, label_errors: true) do |f| %>
 
   <%= f.text_field :name %>
   <%= f.email_field :email %>

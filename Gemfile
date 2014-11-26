@@ -9,7 +9,7 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass', '3.2.0'
 gem 'bootswatch-rails', '3.2.4'
 gem 'autoprefixer-rails'
-gem 'bootstrap_form'
+# gem 'bootstrap_form'
 
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -46,4 +46,6 @@ group :test do
 end
 
 gem 'lookup_column', git: 'git://github.com/mskeen/lookup_column.git'
+# TODO: Switch to the proper gem once the version after 2.2.0 is released.
+gem 'bootstrap_form', git: 'git://github.com/bootstrap-ruby/rails-bootstrap-forms.git'
 

@@ -24,7 +24,7 @@ class EventTrackersController < ApplicationController
     @event_tracker = current_user.event_trackers.new(event_tracker_params)
     @event_tracker.organization = current_user.organization
     @event_tracker.save
-    respond_with(@event_tracker, location: event_trackers_path)
+    respond_with(@event_tracker)
   end
 
   def update

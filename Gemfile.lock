@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/bootstrap-ruby/rails-bootstrap-forms.git
+  revision: 34419d6a45dd63e02fd09e698b623e2e07b7580a
+  specs:
+    bootstrap_form (2.2.0)
+
+GIT
   remote: git://github.com/mskeen/lookup_column.git
   revision: c99c4e31b3444e608ef2d7c5a67329621ca9abbe
   specs:
@@ -40,7 +46,6 @@ GEM
     bcrypt (3.1.7)
     bootstrap-sass (3.2.0.0)
       sass (~> 3.2)
-    bootstrap_form (2.2.0)
     bootswatch-rails (3.2.4)
       railties (>= 3.1)
     builder (3.2.2)
@@ -220,7 +225,7 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   bootstrap-sass (= 3.2.0)
-  bootstrap_form
+  bootstrap_form!
   bootswatch-rails (= 3.2.4)
   capybara (~> 2.4.4)
   coffee-rails (~> 4.0.0)
