@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141125162523) do
+ActiveRecord::Schema.define(version: 20141126153630) do
+
+  create_table "event_trackers", force: true do |t|
+    t.integer  "user_id",                                    null: false
+    t.integer  "organization_id",                            null: false
+    t.string   "name",                                       null: false
+    t.string   "email",                                      null: false
+    t.string   "notes"
+    t.integer  "interval_cd",                default: 2,     null: false
+    t.string   "token",           limit: 16,                 null: false
+    t.integer  "sort_order",                 default: 0,     null: false
+    t.boolean  "is_paused",                  default: false, null: false
+    t.boolean  "is_deleted",                 default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_trackers", ["organization_id"], name: "index_event_trackers_on_organization_id", using: :btree
+  add_index "event_trackers", ["user_id"], name: "index_event_trackers_on_user_id", using: :btree
 
   create_table "organizations", force: true do |t|
     t.string   "name",       null: false
