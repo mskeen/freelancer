@@ -1,4 +1,4 @@
-<%= form_for(@event_tracker) do |f| %>
+<%= bootstrap_form_for(@event_tracker) do |f| %>
   <% if @event_tracker.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@event_tracker.errors.count, "error") %> prohibited this event_tracker from being saved:</h2>
@@ -11,26 +11,15 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :email %>
-    <%= f.email_field :email, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :notes %>
-    <%= f.text_area :notes, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :interval_cd, "Event Frequency" %><br/>
-    <% EventTracker.intervals.each do |interval| %>
-      <%= f.radio_button(:interval_cd, interval.id ) %>
-      <%= f.label :interval_cd, interval.display, value: interval.id %>&nbsp;
-    <% end %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Save" %>
-  </div>
+  <%= f.text_field :name %>
+  <%= f.email_field :email %>
+  <%= f.text_area :notes %>
+
+  <%= f.label :interval_cd, "Event Frequency" %><br/>
+  <% EventTracker.intervals.each do |interval| %>
+    <%= f.radio_button(:interval_cd, interval.id, label: interval.display, inline: true ) %>
+  <% end %><br/><br/>
+
+  <%= f.submit "Save" %>
+
 <% end %>
