@@ -4,7 +4,7 @@ class EventTrackersController < ApplicationController
   before_action :set_event_tracker, only: [:show, :edit, :update, :destroy]
 
   def index
-    @event_trackers = EventTracker.all
+    @event_trackers = current_user.event_trackers.all
     respond_with(@event_trackers)
   end
 
@@ -21,9 +21,10 @@ class EventTrackersController < ApplicationController
   end
 
   def create
-    @event_tracker = EventTracker.new(event_tracker_params)
+    @event_tracker = current_user.event_trackers.new(event_tracker_params)
+    @event_tracker.organization = current_user.organization
     @event_tracker.save
-    respond_with(@event_tracker)
+    respond_with(@event_tracker, location: event_trackers_path)
   end
 
   def update
@@ -32,16 +33,19 @@ class EventTrackersController < ApplicationController
   end
 
   def destroy
-    @event_tracker.destroy
+    @event_tracker.update_attributes(is_deleted: true)
     respond_with(@event_tracker)
   end
 
   private
-    def set_event_tracker
-      @event_tracker = EventTracker.find(params[:id])
-    end
 
-    def event_tracker_params
-      params.require(:event_tracker).permit(:user_id, :organization_id, :name, :email, :notes, :interval_cd, :token, :sort_order, :is_paused, :is_deleted)
-    end
+  def set_event_tracker
+    @event_tracker = current_user.event_trackers.find(params[:id])
+  end
+
+  def event_tracker_params
+    params.require(:event_tracker).permit(
+      :name, :email, :notes, :interval_cd,
+      :sort_order, :is_paused, :is_deleted)
+  end
 end
