@@ -11,22 +11,23 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email, class: "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :notes %><br>
-    <%= f.text_field :notes %>
+  <div class="form-group">
+    <%= f.label :notes %>
+    <%= f.text_area :notes, class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
+    <%= f.label :interval_cd, "Event Frequency" %><br/>
     <% EventTracker.intervals.each do |interval| %>
       <%= f.radio_button(:interval_cd, interval.id ) %>
-      <%= f.label :interval_cd, interval.display, value: interval.id %>
+      <%= f.label :interval_cd, interval.display, value: interval.id %>&nbsp;
     <% end %>
   </div>
   <div class="actions">

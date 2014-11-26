@@ -1,6 +1,11 @@
 <% title 'New Event Tracker' %>
 <% heading 'New Event Tracker' %>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', event_trackers_path %>
+<div class="row">
+  <div class="col-md-6">
+    <%= render 'form' %>
+  </div>
+  <div class="col-md-6">
+    <%= render partial: 'form_instructions' %>
+  </div>
+</div>
