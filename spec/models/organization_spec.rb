@@ -2,9 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Organization, :type => :model do
 
-  describe Organization, 'name' do
-    it 'cannot be blank' do
-      org = FactoryGirl.build(:organization, name: '')
+  it { should have_many :users }
+  it { should have_many :event_trackers }
+
+  describe Organization, 'Name' do
+    it 'cannot have a blank name' do
+      org = Organization.new(name: '')
       expect(org).to_not be_valid
       expect(org.errors[:name]).to include("can't be blank")
     end

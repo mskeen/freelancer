@@ -1,11 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe User, :type => :model do
+RSpec.describe User, type: :model do
 
-  describe User, 'name' do
-    it 'cannot be blank' do
-      user = FactoryGirl.build(:user)
-      user.name = nil
+  it { should have_any :event_trackers }
+  it { should belong_to :organization }
+
+  describe User, 'Name' do
+    it 'cannot have a blank name' do
+      user = User.new(name: nil)
       expect(user).to_not be_valid
       expect(user.errors[:name]).to include("can't be blank")
     end

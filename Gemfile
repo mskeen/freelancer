@@ -45,6 +45,7 @@ group :test do
   gem 'database_cleaner'
   gem 'capybara', '~> 2.4.4'
   gem 'factory_girl_rails'
+  gem 'shoulda-matchers'
 end
 
 gem 'lookup_column', git: 'git://github.com/mskeen/lookup_column.git'

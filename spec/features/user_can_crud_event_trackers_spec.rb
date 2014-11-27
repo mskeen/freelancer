@@ -68,6 +68,13 @@ feature 'user can perform CRUD operations on event trackers' do
   end
 
   # Show -----------------------------------------------
+  feature 'show' do
+    # scenario ''
+    #   user = sign_in_existing_user
+    #   tracker1 = FactoryGirl.create(:event_tracker, name: 'tracker1', user: user)
+    # end
+  end
+
 
   # Edit -----------------------------------------------
 
