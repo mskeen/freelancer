@@ -27,14 +27,15 @@
     <%= render partial: "shared/flash" %>
     <%= yield :heading %>
     <%= yield %>
-    <%= render partial: "shared/footer" %>
+    <div class="push"></div>
   </div>
+  <%= render partial: "shared/footer" %>
 
 </div>
 
 <script>
   $(document).ready(function () {
-    $('#sidebar').height($(document).height() - 60)
+    $('#sidebar').height($(document).height() - 70)
   });
 </script>
 
