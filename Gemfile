@@ -32,6 +32,8 @@ group :development do
   gem 'spring'
   gem 'pow-debug'
   gem 'guard-rspec'
+  gem 'better_errors'
+  gem 'annotate'
 end
 
 group :development, :test do
