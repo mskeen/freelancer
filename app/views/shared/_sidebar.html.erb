@@ -1,55 +1,55 @@
 <div id="sidebar">
   <ul>
     <%= link_to root_path do %>
-      <li>
+      <li <%= current_item_class('dashboard') %>>
         <i class="fa fa-area-chart"></i><br/>
         Dashboard
       </li>
     <% end %>
     <%= link_to '#' do %>
-      <li>
+      <li <%= current_item_class('abc') %>>
         <i class="fa fa-clock-o"></i><br/>
         Timesheet
       </li>
     <% end %>
     <%= link_to '#' do %>
-      <li>
+    <li <%= current_item_class('abc') %>>
         <i class="fa fa-envelope-o"></i><br/>
         Invoices
       </li>
     <% end %>
     <%= link_to '#' do %>
-      <li>
+    <li <%= current_item_class('abc') %>>
         <i class="fa fa-dollar"></i><br/>
         Revenue
       </li>
     <% end %>
     <%= link_to '#' do %>
-      <li>
+    <li <%= current_item_class('abc') %>>
         <i class="fa fa-tachometer"></i><br/>
         Uptime
       </li>
     <% end %>
     <%= link_to event_trackers_path do %>
-      <li>
+    <li <%= current_item_class('eventtrackers') %>>
         <i class="fa fa-exclamation-circle"></i><br/>
         Events
       </li>
     <% end %>
     <%= link_to '#' do %>
-      <li>
+    <li <%= current_item_class('abc') %>>
         <i class="fa fa-check-square"></i><br/>
         Todo
       </li>
     <% end %>
     <%= link_to '#' do %>
-      <li>
+    <li <%= current_item_class('abc') %>>
         <i class="fa fa-users"></i><br/>
         Users
       </li>
     <% end %>
     <%= link_to '#' do %>
-      <li>
+    <li <%= current_item_class('abc') %>>
         <i class="fa fa-cog"></i><br/>
         Account
       </li>

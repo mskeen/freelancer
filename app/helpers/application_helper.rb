@@ -19,4 +19,10 @@ module ApplicationHelper
       end
     end
   end
+
+  def current_item_class(controller_list)
+    controller_name = controller.class.name.downcase.gsub('controller', '')
+    return "class=\"current\"".html_safe if controller_list.include? controller_name
+    return ""
+  end
 end
