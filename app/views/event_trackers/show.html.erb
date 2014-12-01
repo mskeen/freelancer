@@ -1,2 +1,7 @@
 <% title @event_tracker.name %>
 <% heading @event_tracker.name %>
+
+<%= link_to "Edit", edit_event_tracker_path(@event_tracker) %> |
+<%= link_to "Delete", @event_tracker, method: :delete %>
+
+<%= @event_tracker.interval.display %>

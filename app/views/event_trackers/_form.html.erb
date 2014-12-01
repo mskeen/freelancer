@@ -1,13 +1,14 @@
 <%= bootstrap_form_for(@event_tracker, label_errors: true) do |f| %>
 
   <%= f.text_field :name %>
-  <%= f.email_field :email %>
-  <%= f.text_area :notes %>
 
   <%= f.label :interval_cd, "Event Frequency" %><br/>
   <% EventTracker.intervals.each do |interval| %>
     <%= f.radio_button(:interval_cd, interval.id, label: interval.display, inline: true ) %>
   <% end %><br/><br/>
+
+  <%= f.email_field :email %>
+  <%= f.text_area :notes %>
 
   <%= f.submit "Save", class: "btn btn-primary active" %>
 

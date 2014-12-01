@@ -4,7 +4,7 @@ class EventTrackersController < ApplicationController
   before_action :set_event_tracker, only: [:show, :edit, :update, :destroy]
 
   def index
-    @event_trackers = current_user.event_trackers.all
+    @event_trackers = current_user.event_trackers.active.all
     respond_with(@event_trackers)
   end
 
@@ -34,13 +34,13 @@ class EventTrackersController < ApplicationController
 
   def destroy
     @event_tracker.update_attributes(is_deleted: true)
-    respond_with(@event_tracker)
+    respond_with(@event_tracker, location: event_trackers_path)
   end
 
   private
 
   def set_event_tracker
-    @event_tracker = current_user.event_trackers.find(params[:id])
+    @event_tracker = current_user.event_trackers.active.find(params[:id])
   end
 
   def event_tracker_params

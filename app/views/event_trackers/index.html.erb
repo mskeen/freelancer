@@ -7,20 +7,17 @@
       <th>Name</th>
       <th>Interval</th>
       <th>Status</th>
-      <th></th>
+      <th>Last Checked</th>
     </tr>
   </thead>
 
   <tbody>
     <% @event_trackers.each do |event_tracker| %>
       <tr class="event-tracker-row">
-        <td><%= event_tracker.name %></td>
-        <td><%= event_tracker.interval_cd %></td>
+        <td><%= link_to event_tracker.name, event_tracker %></td>
+        <td><%= event_tracker.interval.display %></td>
         <td><%= 'status' %></td>
-        <td>
-          <%= link_to 'Edit', edit_event_tracker_path(event_tracker) %>
-          <%= link_to 'Destroy', event_tracker, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
+        <td></td>
       </tr>
     <% end %>
   </tbody>

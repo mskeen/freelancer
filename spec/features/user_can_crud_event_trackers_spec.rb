@@ -20,7 +20,7 @@ feature 'user can perform CRUD operations on event trackers' do
       user = sign_in_existing_user
       tracker1 = FactoryGirl.create(:event_tracker, name: 'tracker1', user: user)
 
-      user2 = FactoryGirl.create(:user, name: 'user 2', email: 'email2@sample.com')
+      user2 = FactoryGirl.create(:user, id: 2, name: 'user 2', email: 'email2@sample.com')
       tracker2 = FactoryGirl.create(:event_tracker, name: 'tracker2', user: user2)
       click_on 'Events'
 
@@ -69,15 +69,56 @@ feature 'user can perform CRUD operations on event trackers' do
 
   # Show -----------------------------------------------
   feature 'show' do
-    # scenario ''
-    #   user = sign_in_existing_user
-    #   tracker1 = FactoryGirl.create(:event_tracker, name: 'tracker1', user: user)
-    # end
+    scenario 'an existing tracker''s details can be viewed' do
+      user = sign_in_existing_user
+      tracker1 = FactoryGirl.create(:event_tracker,
+        name: 'tracker1', user: user,
+        interval_cd: EventTracker.interval(:minutes_30).id )
+
+      click_on 'Events'
+      click_on 'tracker1'
+
+      expect(page).to have_title "tracker1 - #{AppConfig.site_name}"
+      expect(page).to have_text "30 Minutes"
+    end
   end
 
 
   # Edit -----------------------------------------------
+  feature 'edit' do
+    scenario 'user can change tracker details' do
+      user = sign_in_existing_user
+      tracker1 = FactoryGirl.create(:event_tracker,
+        name: 'tracker1', user: user,
+        interval_cd: EventTracker.interval(:minutes_30).id )
+
+      click_on 'Events'
+      click_on 'tracker1'
+      click_on 'Edit'
+
+      choose 'Daily'
+      click_on 'Save'
+
+      expect(page).to have_title "tracker1 - #{AppConfig.site_name}"
+      expect(page).to have_text "Daily"
+    end
+  end
 
   # Delete -----------------------------------------------
+  feature 'delete' do
+    scenario 'user can change delete a tracker' do
+      user = sign_in_existing_user
+      tracker1 = FactoryGirl.create(:event_tracker,
+        name: 'tracker1', user: user,
+        interval_cd: EventTracker.interval(:minutes_30).id )
+
+      click_on 'Events'
+      click_on 'tracker1'
+      click_on 'Delete'
+
+      expect(page).to have_title "Event Tracking - #{AppConfig.site_name}"
+      expect(page).to_not have_text "tracker1"
+    end
+  end
 
 end

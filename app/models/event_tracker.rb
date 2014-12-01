@@ -20,6 +20,9 @@ class EventTracker < ActiveRecord::Base
     option :monthly,          5, 'Monthly',    increment: 1.month
   end
 
+  scope :active, -> { where(is_deleted: false) }
+
+
   private
 
   def generate_token
