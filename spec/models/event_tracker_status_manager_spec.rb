@@ -31,7 +31,12 @@ RSpec.describe EventTrackerStatusManager, type: :model do
 
   it 'cannot go from pending to alert' do
     mgr = setup_with_status(:pending)
-    expect(mgr.change_to_status(EventTracker.status(:alert))).to eq false
+    expect { mgr.change_to_status(EventTracker.status(:alert)) }.to raise_error 'InvalidEventTrackerStatusChange'
+  end
+
+  it 'cannot go from ok to peding' do
+    mgr = setup_with_status(:ok)
+    expect { mgr.change_to_status(EventTracker.status(:pending)) }.to raise_error 'InvalidEventTrackerStatusChange'
   end
 end
 
