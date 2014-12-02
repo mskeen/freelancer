@@ -24,12 +24,12 @@ class EventTrackerStatusManager
   end
 
   def ok_to_alert
-    # send alert email
+    EventTrackerMailer.alert(@event_tracker).deliver
     true
   end
 
   def alert_to_ok
-    # send ok email
+    EventTrackerMailer.alert_cleared(@event_tracker).deliver
     true
   end
 
