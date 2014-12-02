@@ -70,20 +70,32 @@ RSpec.describe EventTracker, type: :model do
     end
   end
 
-  describe EventTracker do
-    it 'is due when 1 hour check was done more than an hour ago' do
+  describe "due?" do
+    it 'is true when 1 hour check was done more than an hour ago' do
       t = FactoryGirl.create(:event_tracker, last_checked_at: Time.zone.now - 65.minutes)
       expect(t).to be_due
     end
 
-    it 'is not due when 1 hour check was 10 minutes ago' do
+    it 'is false when 1 hour check was 10 minutes ago' do
       t = FactoryGirl.create(:event_tracker, last_checked_at: Time.zone.now - 10.minutes)
       expect(t).to_not be_due
     end
 
-    it 'is due when 1 day check was done more than a day ago' do
-      t = FactoryGirl.create(:event_tracker, last_checked_at: Time.zone.yesterday)
+    it 'is true when 1 day check was done more than a day ago' do
+      t = FactoryGirl.create(:event_tracker, interval_cd: EventTracker.interval(:daily).id, last_checked_at: Time.zone.yesterday)
       expect(t).to be_due
+    end
+  end
+
+  describe "scope: due" do
+    it "includes only items that are currently due to be checked" do
+      t1 = FactoryGirl.create(:event_tracker, next_check_at: Time.zone.now - 65.minutes)
+      t2 = FactoryGirl.create(:event_tracker, next_check_at: Time.zone.now + 10.minutes)
+      t3 = FactoryGirl.create(:event_tracker, interval_cd: EventTracker.interval(:daily).id, next_check_at: Time.zone.yesterday)
+      ids = EventTracker.due.map(&:id)
+      expect(ids).to include t1.id
+      expect(ids).to_not include t2.id
+      expect(ids).to include t3.id
     end
   end
 

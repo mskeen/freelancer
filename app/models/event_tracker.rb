@@ -32,6 +32,7 @@ class EventTracker < ActiveRecord::Base
   end
 
   scope :active, -> { where(is_deleted: false) }
+  scope :due, -> { where('next_check_at <= ?', Time.zone.now) }
 
   def ping(task_length = nil, comment = nil)
     pings.create(task_length: task_length, comment: comment)

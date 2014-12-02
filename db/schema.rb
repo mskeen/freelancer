@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20141202161926) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "last_checked_at"
+    t.datetime "next_check_at"
   end
 
   add_index "event_trackers", ["organization_id"], name: "index_event_trackers_on_organization_id", using: :btree
