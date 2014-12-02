@@ -37,6 +37,7 @@ class EventTracker < ActiveRecord::Base
   def ping(task_length = nil, comment = nil)
     pings.create(task_length: task_length, comment: comment)
     touch(:last_ping_at)
+    status_manager.change_to_status(EventTracker.status(:ok))
   end
 
   def to_param
@@ -52,6 +53,10 @@ class EventTracker < ActiveRecord::Base
   end
 
   private
+
+  def status_manager
+    @status_manager ||= EventTrackerStatusManager.new(self)
+  end
 
   def generate_token
     self.token = loop do

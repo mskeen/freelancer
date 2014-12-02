@@ -99,4 +99,15 @@ RSpec.describe EventTracker, type: :model do
     end
   end
 
+  describe "check" do
+    it "reports true when recently pinged" do
+      t1 = FactoryGirl.create(:event_tracker, next_check_at: Time.zone.now - 65.minutes)
+      t1.ping
+      t1.reload
+      expect(t1.check).to eq true
+      t1.reload
+      expect(t1.status)
+    end
+  end
+
 end
