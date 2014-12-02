@@ -8,6 +8,8 @@ class EventTracker < ActiveRecord::Base
   validates :name, presence: true
   validates :email, presence: true
   validates :interval_cd, presence: true
+  validates :status_cd, presence: true
+  validate :validate_email_list
 
   before_create :generate_token
 
@@ -37,6 +39,10 @@ class EventTracker < ActiveRecord::Base
     token
   end
 
+  def emails
+    email ? email.split(',').map(&:strip) : []
+  end
+
   private
 
   def generate_token
@@ -44,6 +50,14 @@ class EventTracker < ActiveRecord::Base
       random_token =
         SecureRandom.urlsafe_base64(nil, false)[0..(TOKEN_LENGTH - 1)]
       break random_token unless self.class.exists?(token: random_token)
+    end
+  end
+
+  def validate_email_list
+    emails.each do |addr|
+      unless addr.match(/\A[^@]+@[^@]+\z/)
+        errors.add(:email, 'must be valid format and separated by commas')
+      end
     end
   end
 end
