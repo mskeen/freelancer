@@ -99,14 +99,36 @@ RSpec.describe EventTracker, type: :model do
     end
   end
 
+  describe "scope: running" do
+    it "includes only items that are currently ok or alert status" do
+      t1 = FactoryGirl.create(:event_tracker, status_cd: EventTracker.status(:ok).id)
+      t2 = FactoryGirl.create(:event_tracker, status_cd: EventTracker.status(:alert).id)
+      t3 = FactoryGirl.create(:event_tracker, status_cd: EventTracker.status(:paused).id)
+      t4 = FactoryGirl.create(:event_tracker, status_cd: EventTracker.status(:pending).id)
+      ids = EventTracker.running.map(&:id)
+      expect(ids).to include t1.id
+      expect(ids).to include t2.id
+      expect(ids).to_not include t3.id
+      expect(ids).to_not include t4.id
+    end
+  end
+
   describe "check" do
     it "reports true when recently pinged" do
       t1 = FactoryGirl.create(:event_tracker, next_check_at: Time.zone.now - 65.minutes)
       t1.ping
       t1.reload
-      expect(t1.check).to eq true
+      expect(t1.check(Time.zone.now)).to eq true
       t1.reload
-      expect(t1.status)
+      # expect(t1.status)
+    end
+
+    it "reports flase when not recently pinged" do
+      t1 = FactoryGirl.create(:event_tracker, next_check_at: Time.zone.now - 65.minutes, last_ping_at: Time.zone.now - 90.minutes)
+      t1.status = EventTracker.status(:ok)
+      expect(t1.check(Time.zone.now)).to eq false
+      t1.reload
+      # expect(t1.status)
     end
   end
 

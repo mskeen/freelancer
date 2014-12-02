@@ -33,11 +33,21 @@ class EventTracker < ActiveRecord::Base
 
   scope :active, -> { where(is_deleted: false) }
   scope :due, -> { where('next_check_at <= ?', Time.zone.now) }
+  scope :running, -> { where(status_cd: [ EventTracker.status(:ok).id, EventTracker.status(:alert).id ] ) }
 
   def ping(task_length = nil, comment = nil)
     pings.create(task_length: task_length, comment: comment)
     touch(:last_ping_at)
     status_manager.change_to_status(EventTracker.status(:ok))
+  end
+
+  def check(check_start_at)
+    if last_ping_at >= (check_start_at - self.interval.increment)
+      status_manager.change_to_status(EventTracker.status(:ok))
+      return true
+    end
+    status_manager.change_to_status(EventTracker.status(:alert))
+    false
   end
 
   def to_param
