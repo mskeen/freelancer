@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141202145000) do
+ActiveRecord::Schema.define(version: 20141202161926) do
 
   create_table "event_tracker_pings", force: true do |t|
     t.integer  "event_tracker_id"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20141202145000) do
     t.boolean  "is_deleted",                 default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "last_checked_at"
   end
 
   add_index "event_trackers", ["organization_id"], name: "index_event_trackers_on_organization_id", using: :btree

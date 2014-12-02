@@ -69,4 +69,22 @@ RSpec.describe EventTracker, type: :model do
       expect(EventTracker.active.count).to eq 1
     end
   end
+
+  describe EventTracker do
+    it 'is due when 1 hour check was done more than an hour ago' do
+      t = FactoryGirl.create(:event_tracker, last_checked_at: Time.zone.now - 65.minutes)
+      expect(t).to be_due
+    end
+
+    it 'is not due when 1 hour check was 10 minutes ago' do
+      t = FactoryGirl.create(:event_tracker, last_checked_at: Time.zone.now - 10.minutes)
+      expect(t).to_not be_due
+    end
+
+    it 'is due when 1 day check was done more than a day ago' do
+      t = FactoryGirl.create(:event_tracker, last_checked_at: Time.zone.yesterday)
+      expect(t).to be_due
+    end
+  end
+
 end

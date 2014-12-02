@@ -46,6 +46,10 @@ class EventTracker < ActiveRecord::Base
     email ? email.split(',').map(&:strip) : []
   end
 
+  def due?
+    last_checked_at + interval.increment < Time.zone.now
+  end
+
   private
 
   def generate_token
