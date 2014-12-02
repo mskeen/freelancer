@@ -47,6 +47,7 @@ RSpec.describe EventTracker, type: :model do
   describe 'associations' do
     it { should belong_to :user }
     it { should belong_to :organization }
+    it { should have_many :pings }
   end
 
   describe EventTracker, 'token' do

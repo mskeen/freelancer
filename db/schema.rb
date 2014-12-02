@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141126153630) do
+ActiveRecord::Schema.define(version: 20141202145000) do
+
+  create_table "event_tracker_pings", force: true do |t|
+    t.integer  "event_tracker_id"
+    t.string   "task_length"
+    t.string   "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_tracker_pings", ["event_tracker_id"], name: "index_event_tracker_pings_on_event_tracker_id", using: :btree
 
   create_table "event_trackers", force: true do |t|
     t.integer  "user_id",                                    null: false
@@ -22,7 +32,7 @@ ActiveRecord::Schema.define(version: 20141126153630) do
     t.integer  "interval_cd",                default: 2,     null: false
     t.string   "token",           limit: 16,                 null: false
     t.integer  "status_cd",                  default: 1,     null: false
-    t.datetime "last_ping"
+    t.datetime "last_ping_at"
     t.integer  "sort_order",                 default: 0,     null: false
     t.boolean  "is_paused",                  default: false, null: false
     t.boolean  "is_deleted",                 default: false, null: false

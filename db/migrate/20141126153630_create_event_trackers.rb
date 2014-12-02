@@ -9,7 +9,7 @@ class CreateEventTrackers < ActiveRecord::Migration
       t.integer :interval_cd, null: false, default: EventTracker.interval(:hourly).id
       t.string :token, null: false, limit: 16
       t.integer :status_cd, null: false, default: EventTracker.status(:pending).id
-      t.datetime :last_ping
+      t.datetime :last_ping_at
       t.integer :sort_order, null: false, default: 0
       t.boolean :is_paused, null: false, default: false
       t.boolean :is_deleted, null: false, default: false

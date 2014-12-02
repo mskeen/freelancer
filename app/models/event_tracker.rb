@@ -4,6 +4,7 @@ class EventTracker < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :organization
+  has_many :pings, class_name: 'EventTrackerPing'
 
   validates :name, presence: true
   validates :email, presence: true
@@ -33,6 +34,9 @@ class EventTracker < ActiveRecord::Base
   scope :active, -> { where(is_deleted: false) }
 
   def ping
+    pings.create
+    self.last_ping_at = Time.zone.now
+    save
   end
 
   def to_param

@@ -1,9 +1,8 @@
 class EventTrackersController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: [:ping]
   respond_to :html
 
-  before_action :set_event_tracker,
-    only: [:show, :edit, :update, :destroy, :ping]
+  before_action :set_event_tracker, only: [:show, :edit, :update, :destroy]
 
   def index
     @event_trackers = current_user.event_trackers.active.all
@@ -15,8 +14,9 @@ class EventTrackersController < ApplicationController
   end
 
   def ping
-    @event_tracker.ping
-    render text: "ok"
+    @event_tracker = EventTracker.active.find_by_token(params[:id])
+    @event_tracker.ping if @event_tracker
+    render text: 'ok'
   end
 
   def new
