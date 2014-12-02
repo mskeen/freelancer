@@ -33,10 +33,9 @@ class EventTracker < ActiveRecord::Base
 
   scope :active, -> { where(is_deleted: false) }
 
-  def ping
-    pings.create
-    self.last_ping_at = Time.zone.now
-    save
+  def ping(task_length = nil, comment = nil)
+    pings.create(task_length: task_length, comment: comment)
+    touch(:last_ping_at)
   end
 
   def to_param

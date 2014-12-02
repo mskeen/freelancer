@@ -15,7 +15,7 @@ class EventTrackersController < ApplicationController
 
   def ping
     @event_tracker = EventTracker.active.find_by_token(params[:id])
-    @event_tracker.ping if @event_tracker
+    @event_tracker.ping(params[:time], params[:comment]) if @event_tracker
     render text: 'ok'
   end
 
