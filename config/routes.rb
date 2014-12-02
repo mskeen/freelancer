@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :event_trackers
+  get 'ping/:id', to: 'event_trackers#ping', as: :ping_event_tracker
+  resources :event_trackers do
+    get 'ping', on: :member
+  end
 
   unauthenticated do
     root 'brochure#index'

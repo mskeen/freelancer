@@ -5,3 +5,7 @@
 <%= link_to "Delete", @event_tracker, method: :delete %>
 
 <%= @event_tracker.interval.display %>
+
+<h4>Your unique tracker URL</h4>
+
+<p><%= ping_event_tracker_url(@event_tracker.token) %></p>

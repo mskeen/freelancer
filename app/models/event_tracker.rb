@@ -1,3 +1,4 @@
+# Model EventTracker
 class EventTracker < ActiveRecord::Base
   include LookupColumn
 
@@ -20,14 +21,28 @@ class EventTracker < ActiveRecord::Base
     option :monthly,          5, 'Monthly',    increment: 1.month
   end
 
+  lookup_group :status, :status_cd do
+    option :pending,          1, 'Pending'
+    option :ok,               2, 'Ok'
+    option :paused,           3, 'Paused'
+    option :alert,            4, 'Alert'
+  end
+
   scope :active, -> { where(is_deleted: false) }
 
+  def ping
+  end
+
+  def to_param
+    token
+  end
 
   private
 
   def generate_token
     self.token = loop do
-      random_token = SecureRandom.urlsafe_base64(nil, false)[0..(TOKEN_LENGTH - 1)]
+      random_token =
+        SecureRandom.urlsafe_base64(nil, false)[0..(TOKEN_LENGTH - 1)]
       break random_token unless self.class.exists?(token: random_token)
     end
   end

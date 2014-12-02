@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 20141126153630) do
     t.string   "notes"
     t.integer  "interval_cd",                default: 2,     null: false
     t.string   "token",           limit: 16,                 null: false
+    t.integer  "status_cd",                  default: 1,     null: false
+    t.datetime "last_ping"
     t.integer  "sort_order",                 default: 0,     null: false
     t.boolean  "is_paused",                  default: false, null: false
     t.boolean  "is_deleted",                 default: false, null: false
