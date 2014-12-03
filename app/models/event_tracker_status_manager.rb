@@ -11,7 +11,11 @@ class EventTrackerStatusManager
 
   def distribute_status_message(new_status)
     method = calculate_method_name(new_status)
-    return send(method) if respond_to? method
+    if respond_to? method
+      @event_tracker.status = new_status
+      @event_tracker.save!
+      return send(method)
+    end
     fail 'InvalidEventTrackerStatusChange'
   end
 
