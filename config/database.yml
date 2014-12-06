@@ -15,3 +15,4 @@ test:
 
 production:
   <<: *default
+  host: <%= Rails.application.secrets.db['host'] %>
