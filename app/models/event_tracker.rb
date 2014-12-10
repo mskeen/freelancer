@@ -71,7 +71,7 @@ class EventTracker < ActiveRecord::Base
   def generate_token
     self.token = loop do
       random_token =
-        SecureRandom.urlsafe_base64(nil, false)[0..(TOKEN_LENGTH - 1)]
+        SecureRandom.hex[0..(TOKEN_LENGTH - 1)]
       break random_token unless self.class.exists?(token: random_token)
     end
   end
