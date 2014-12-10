@@ -92,6 +92,28 @@ RSpec.describe EventTracker, type: :model do
     end
   end
 
+  describe :next_check_at do
+    it 'is nil when last_checked_at is nil' do
+      t1 = FactoryGirl.create(:event_tracker, last_checked_at: nil)
+      expect(t1.next_check_at).to be_nil
+    end
+
+    it 'is 1 hour after last_checked_at when hourly' do
+      tm = Time.zone.now
+      t1 = FactoryGirl.create(:event_tracker, interval_cd: EventTracker.interval(:hourly).id, last_checked_at: tm)
+      expect(t1.next_check_at).to eq (tm + 1.hour)
+    end
+
+    it 'is corrected when interval changes' do
+      tm = Time.zone.now
+      t1 = FactoryGirl.create(:event_tracker, interval_cd: EventTracker.interval(:hourly).id, last_checked_at: tm)
+      expect(t1.next_check_at).to eq (tm + 1.hour)
+      t1.interval = EventTracker.interval(:daily)
+      t1.save
+      expect(t1.next_check_at).to eq (tm + 1.day)
+    end
+  end
+
   describe "scope: due" do
     it "includes only items that are currently due to be checked" do
       t1 = FactoryGirl.create(:event_tracker, next_check_at: Time.zone.now - 65.minutes)

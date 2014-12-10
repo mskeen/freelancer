@@ -13,6 +13,7 @@ class EventTracker < ActiveRecord::Base
   validate :validate_email_list
 
   before_create :generate_token
+  before_save :update_next_check_at
 
   TOKEN_LENGTH = 12
 
@@ -84,5 +85,9 @@ class EventTracker < ActiveRecord::Base
         errors.add(:email, 'must be valid format and separated by commas')
       end
     end
+  end
+
+  def update_next_check_at
+    self.next_check_at = last_checked_at + interval.increment if last_checked_at
   end
 end
