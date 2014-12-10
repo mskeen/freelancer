@@ -24,6 +24,7 @@ class EventTrackerStatusManager
   end
 
   def pending_to_ok
+    @event_tracker.next_check_at = Time.zone.now
     true
   end
 
