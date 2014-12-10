@@ -42,6 +42,7 @@ class EventTracker < ActiveRecord::Base
   end
 
   def check(check_start_at)
+    touch(:last_checked_at)
     if last_ping_at >= (check_start_at - self.interval.increment)
       status_manager.change_to_status(EventTracker.status(:ok))
       return true
