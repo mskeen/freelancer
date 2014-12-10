@@ -1,3 +1,5 @@
-EventTrackerMailer#alert_cleared
+Good news!  Your event tracker, <%= @event_tracker.name %>, has
+checked in and cleared the alert.
 
-<%= @greeting %>, find me in app/views/event_tracker_mailer/alert_cleared.text.erb
+You can view the tracker's history and status by visiting this page:
+<%= event_tracker_url(@event_tracker) %>

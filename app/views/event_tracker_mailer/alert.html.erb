@@ -1,5 +1,10 @@
-<h1>EventTrackerMailer#alert</h1>
+<p>
+<strong>Alert!</strong>  Your event tracker for <%= @event_tracker.name %> has
+not checked in during the expected period of time
+(<%= @event_tracker.interval.name %>).
+</p>
 
 <p>
-  <%= @greeting %>, find me in app/views/event_tracker_mailer/alert.html.erb
+You can view the tracker's history and status by visiting this page:<br/>
+<%= event_tracker_url(@event_tracker.token) %>
 </p>

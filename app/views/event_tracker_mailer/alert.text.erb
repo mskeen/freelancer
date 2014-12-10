@@ -1,3 +1,5 @@
-EventTrackerMailer#alert
+Alert!  Your event tracker for <%= @event_tracker.name %> has not checked
+in during the expected period of time (<%= @event_tracker.interval.name %>).
 
-<%= @greeting %>, find me in app/views/event_tracker_mailer/alert.text.erb
+You can view the tracker's history and status by visiting this page:
+<%= event_tracker_url(@event_tracker) %>

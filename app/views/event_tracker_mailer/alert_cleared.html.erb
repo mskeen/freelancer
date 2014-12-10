@@ -1,5 +1,10 @@
-<h1>EventTrackerMailer#alert_cleared</h1>
+<p>
+<strong>Good news!</strong>  Your event tracker, <%= @event_tracker.name %>, has
+checked in and cleared the alert.
+</p>
 
 <p>
-  <%= @greeting %>, find me in app/views/event_tracker_mailer/alert_cleared.html.erb
+You can view the tracker's history and status by visiting this page:<br/>
+<%= event_tracker_url(@event_tracker.token) %>
 </p>
+
