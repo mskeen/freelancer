@@ -85,6 +85,11 @@ RSpec.describe EventTracker, type: :model do
       t = FactoryGirl.create(:event_tracker, interval_cd: EventTracker.interval(:daily).id, last_checked_at: Time.zone.yesterday)
       expect(t).to be_due
     end
+
+    it 'is true for a new Tracker' do
+      t = FactoryGirl.create(:event_tracker, interval_cd: EventTracker.interval(:daily).id)
+      expect(t).to be_due
+    end
   end
 
   describe "scope: due" do

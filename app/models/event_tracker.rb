@@ -60,7 +60,8 @@ class EventTracker < ActiveRecord::Base
   end
 
   def due?
-    last_checked_at + interval.increment < Time.zone.now
+    last_checked_at.nil? ||
+      (last_checked_at + interval.increment < Time.zone.now)
   end
 
   private
