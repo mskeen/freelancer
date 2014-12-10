@@ -141,18 +141,18 @@ RSpec.describe EventTracker, type: :model do
   end
 
   describe "check" do
-    it "reports true when recently pinged" do
+    it "sets status to ok when recently pinged" do
       t1 = FactoryGirl.create(:event_tracker, next_check_at: Time.zone.now - 65.minutes)
       t1.ping
       t1.reload
-      expect(t1.check(Time.zone.now)).to eq true
+      t1.check(Time.zone.now)
       expect(t1.status.name).to eq :ok
     end
 
     it "reports false when not recently pinged" do
       t1 = FactoryGirl.create(:event_tracker, next_check_at: Time.zone.now - 65.minutes, last_ping_at: Time.zone.now - 90.minutes)
       t1.status = EventTracker.status(:ok)
-      expect(t1.check(Time.zone.now)).to eq false
+      t1.check(Time.zone.now)
       expect(t1.status.name).to eq :alert
     end
   end

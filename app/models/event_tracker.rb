@@ -43,13 +43,13 @@ class EventTracker < ActiveRecord::Base
   end
 
   def check(check_start_at)
-    touch(:last_checked_at)
+    self.last_checked_at = Time.zone.now
     if last_ping_at >= (check_start_at - self.interval.increment)
       status_manager.change_to_status(EventTracker.status(:ok))
-      return true
+    else
+      status_manager.change_to_status(EventTracker.status(:alert))
     end
-    status_manager.change_to_status(EventTracker.status(:alert))
-    false
+    save!
   end
 
   def to_param
