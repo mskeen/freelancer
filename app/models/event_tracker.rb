@@ -16,6 +16,7 @@ class EventTracker < ActiveRecord::Base
   before_save :update_next_check_at
 
   TOKEN_LENGTH = 12
+  BUFFER = 5.minutes
 
   lookup_group :interval, :interval_cd do
     option :minutes_30,       1, '30 Minutes', increment: 30.minutes
@@ -33,7 +34,7 @@ class EventTracker < ActiveRecord::Base
   end
 
   scope :active, -> { where(is_deleted: false) }
-  scope :due, -> { where('next_check_at <= ?', Time.zone.now) }
+  scope :due, -> { where('next_check_at <= ?', Time.zone.now + BUFFER) }
   scope :running, -> { where(status_cd: [ EventTracker.status(:ok).id, EventTracker.status(:alert).id ] ) }
 
   def ping(task_length = nil, comment = nil)
@@ -43,7 +44,7 @@ class EventTracker < ActiveRecord::Base
   end
 
   def check(check_start_at)
-    self.last_checked_at = Time.zone.now
+    self.last_checked_at = check_start_at
     if last_ping_at >= (check_start_at - self.interval.increment)
       status_manager.change_to_status(EventTracker.status(:ok))
     else
