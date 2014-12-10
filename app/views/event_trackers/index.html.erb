@@ -7,6 +7,7 @@
       <th>Name</th>
       <th>Interval</th>
       <th>Status</th>
+      <th>Last Ping</th>
       <th>Last Checked</th>
     </tr>
   </thead>
@@ -16,8 +17,13 @@
       <tr class="event-tracker-row">
         <td><%= link_to event_tracker.name, event_tracker %></td>
         <td><%= event_tracker.interval.display %></td>
-        <td><%= 'status' %></td>
-        <td></td>
+        <td><%= event_tracker.status.name.capitalize %></td>
+        <td>
+          <%= time_ago(event_tracker.last_ping_at) %>
+        </td>
+        <td>
+          <%= time_ago(event_tracker.last_checked_at) %>
+        </td>
       </tr>
     <% end %>
   </tbody>

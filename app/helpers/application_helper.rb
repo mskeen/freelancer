@@ -25,4 +25,12 @@ module ApplicationHelper
     return "class=\"current\"".html_safe if controller_list.include? controller_name
     return ""
   end
+
+  def standard_datetime(d)
+    d.strftime('%b %-d, %Y at %H:%M') if d
+  end
+
+  def time_ago(d)
+    time_ago_in_words(d) + ' ago' if d
+  end
 end

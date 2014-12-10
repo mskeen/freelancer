@@ -4,7 +4,7 @@ class EventTracker < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :organization
-  has_many :pings, class_name: 'EventTrackerPing'
+  has_many :pings, class_name: 'EventTrackerPing', dependent: :destroy
 
   validates :name, presence: true
   validates :email, presence: true
