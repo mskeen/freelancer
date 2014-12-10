@@ -12,9 +12,10 @@ class EventTrackerStatusManager
   def distribute_status_message(new_status)
     method = calculate_method_name(new_status)
     if respond_to? method
+      send(method)
       @event_tracker.status = new_status
       @event_tracker.save!
-      return send(method)
+      return true
     end
     fail 'InvalidEventTrackerStatusChange'
   end
@@ -25,20 +26,19 @@ class EventTrackerStatusManager
 
   def pending_to_ok
     @event_tracker.next_check_at = Time.zone.now
-    true
   end
 
   def ok_to_alert
     EventTrackerMailer.alert(@event_tracker).deliver
-    true
   end
 
   def alert_to_ok
     EventTrackerMailer.alert_cleared(@event_tracker).deliver
-    true
   end
 
-  alias_method :paused_to_ok, :pending_to_ok
-  alias_method :ok_to_paused, :pending_to_ok
-  alias_method :alert_to_paused, :pending_to_ok
+  def paused_to_ok
+  end
+
+  alias_method :ok_to_paused, :paused_to_ok
+  alias_method :alert_to_paused, :paused_to_ok
 end
