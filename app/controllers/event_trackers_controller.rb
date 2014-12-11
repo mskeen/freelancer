@@ -6,7 +6,8 @@ class EventTrackersController < ApplicationController
 
   def index
     @event_trackers = current_user.event_trackers.active.all
-    respond_with(@event_trackers)
+    @status_counts =
+      @event_trackers.inject(Hash.new(0)) { |h, t| h[t.status.name] += 1; h }
   end
 
   def show

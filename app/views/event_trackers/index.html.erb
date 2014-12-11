@@ -1,10 +1,32 @@
 <% title 'Event Tracking' %>
 <% heading 'Event Tracking' %>
 
-<div class="visualizations">
-  <canvas id="vis-ok" class="donut" style="width:25%"></canvas>
-  <canvas id="vis-alert" class="donut" style="width:25%"></canvas>
-</div>
+<section class="visualizations">
+  <div class="col-md-12 well">
+    <div class="row">
+      <div class="col-md-8">
+        <h3><i class="fa fa-exclamation-circle"></i> Quick Stats</h3>
+        <hr/>
+        <p>
+          There are currently
+          <%= @status_counts[:ok] + @status_counts[:alert] %>
+          active event trackers.
+        </p>
+        <canvas id="vis-status" class="donut" style="width:25%"></canvas>
+      </div>
+      <div class="col-md-4">
+        <div class="well">
+          <h5>Overall Uptime</h5>
+          <ul>
+            <li><i class="fa fa-certificate"></i> 100% Last 24 Hours</li>
+            <li><i class="fa fa-certificate"></i> 99.8% Last 7 Days</li>
+            <li><i class="fa fa-certificate"></i> 99.9% Last 30 Days</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <table class="table table-condensed table-hover">
   <thead>
@@ -45,25 +67,25 @@ $(function() {
 
   data = [
     {
-      value: 7,
+      value: <%= @status_counts[:ok] %>,
       color: "#46BFBD",
       highlight: "#5AD3D1",
       label: "Ok"
     },
     {
-      value: 2,
+      value: <%= @status_counts[:alert] %>,
       color:"#F7464A",
       highlight: "#FF5A5E",
       label: "Alert"
     },
     {
-      value: 1,
+      value: <%= @status_counts[:pending] +  @status_counts[:paused] %>,
       color: "#FDB45C",
       highlight: "#FFC870",
-      label: "Paused"
+      label: "Paused/Pending"
     }
   ]
 
-  myNewChart = new Chart($("#vis-ok").get(0).getContext("2d")).Doughnut(data, {})
+  myNewChart = new Chart($("#vis-status").get(0).getContext("2d")).Doughnut(data, {})
 })
 </script>
