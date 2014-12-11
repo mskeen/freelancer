@@ -1,6 +1,11 @@
 <% title 'Event Tracking' %>
 <% heading 'Event Tracking' %>
 
+<div class="visualizations">
+  <canvas id="vis-ok" class="donut" style="width:25%"></canvas>
+  <canvas id="vis-alert" class="donut" style="width:25%"></canvas>
+</div>
+
 <table class="table table-condensed table-hover">
   <thead>
     <tr>
@@ -34,3 +39,31 @@
 <br>
 
 <%= link_to 'New Event Tracker', new_event_tracker_path, class: "btn btn-primary active " %>
+
+<script>
+$(function() {
+
+  data = [
+    {
+      value: 7,
+      color: "#46BFBD",
+      highlight: "#5AD3D1",
+      label: "Ok"
+    },
+    {
+      value: 2,
+      color:"#F7464A",
+      highlight: "#FF5A5E",
+      label: "Alert"
+    },
+    {
+      value: 1,
+      color: "#FDB45C",
+      highlight: "#FFC870",
+      label: "Paused"
+    }
+  ]
+
+  myNewChart = new Chart($("#vis-ok").get(0).getContext("2d")).Doughnut(data, {})
+})
+</script>

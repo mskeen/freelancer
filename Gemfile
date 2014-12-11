@@ -16,9 +16,12 @@ gem 'therubyracer', '0.12.1', platforms: :ruby
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'chart-js-rails'
+
 gem 'jbuilder', '~> 2.0'
 
 gem 'whenever', require: false
+
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'

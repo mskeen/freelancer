@@ -2,6 +2,7 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require freelancer
+//= require Chart
 //= require_tree .
 
 (function($, undefined) {

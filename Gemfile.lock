@@ -64,6 +64,8 @@ GEM
       xpath (~> 2.0)
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    chart-js-rails (0.0.7)
+      railties (> 3.1)
     chronic (0.10.2)
     coderay (1.1.0)
     coffee-rails (4.0.1)
@@ -247,6 +249,7 @@ DEPENDENCIES
   bootstrap_form!
   bootswatch-rails (= 3.2.4)
   capybara (~> 2.4.4)
+  chart-js-rails
   coffee-rails (~> 4.0.0)
   database_cleaner
   devise
