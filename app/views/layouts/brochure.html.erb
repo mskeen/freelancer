@@ -24,15 +24,10 @@
 
 <%= yield :jumbotron %>
 
-<div class="container page-content">
-
+<div class="container">
   <%= yield :heading %>
-
   <%= render partial: "shared/flash" %>
-
   <%= yield %>
-
-
 </div>
 
 <%= render partial: "shared/footer" %>
