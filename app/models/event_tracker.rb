@@ -35,7 +35,9 @@ class EventTracker < ActiveRecord::Base
 
   scope :active, -> { where(is_deleted: false) }
   scope :due, -> { where('next_check_at <= ?', Time.zone.now + BUFFER) }
-  scope :running, -> { where(status_cd: [ EventTracker.status(:ok).id, EventTracker.status(:alert).id ] ) }
+  scope :running, -> { where(
+    status_cd: [ EventTracker.status(:ok).id, EventTracker.status(:alert).id ]
+  ) }
 
   def ping(task_length = nil, comment = nil)
     pings.create(task_length: task_length, comment: comment)
