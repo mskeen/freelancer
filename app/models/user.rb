@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   belongs_to :organization
   has_many :event_trackers
+  has_many :contacts
 
   validates :name, presence: true
 

@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Organization, :type => :model do
 
   it { should have_many :users }
+  it { should have_many :contacts }
   it { should have_many :event_trackers }
 
   describe Organization, 'Name' do

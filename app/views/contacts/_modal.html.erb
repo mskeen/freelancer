@@ -1,0 +1,40 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+      <h4><%= @contact.new_record? ? "New Contact" : "Edit Contact" %></h4>
+    </div>
+
+    <%= form_for(@contact, remote: true) do |f| %>
+      <div class="modal-body">
+        <div class="comp-cueue">
+
+          <% if @contact.errors.any? %>
+            <div id="error_explanation" class="alert alert-danger"
+                 data-dismiss="alert">
+              <p>
+                <%= @contact.errors.full_messages.map { |e| e + "." }.join %>
+              </p>
+            </div>
+          <% end %>
+
+          <div class="field">
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+          </div>
+
+          <div class="field">
+            <%= f.label :email %>
+            <%= f.email_field :email %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+        <%= f.submit "Save", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+
+ </div>
+</div>

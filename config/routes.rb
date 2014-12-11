@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   # Override Devise routes
   devise_for :users, skip: [:registrations]
   devise_scope :user do
@@ -10,7 +11,10 @@ Rails.application.routes.draw do
   end
 
   get 'ping/:id', to: 'event_trackers#ping', as: :ping_event_tracker
+
   resources :event_trackers
+  resources :contacts, except: [:index, :show]
+  resource :account, only: [:edit, :update]
 
   unauthenticated do
     root 'brochure#index'
