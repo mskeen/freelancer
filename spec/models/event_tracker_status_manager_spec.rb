@@ -85,7 +85,7 @@ RSpec.describe EventTrackerStatusManager, type: :model do
 end
 
 def build_with_status(old_status)
-  FactoryGirl.build(:event_tracker,
+  FactoryGirl.create(:event_tracker,
                     email: 'test@sample.com',
                     status: EventTracker.status(old_status))
 end

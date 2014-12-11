@@ -91,7 +91,7 @@ class EventTracker < ActiveRecord::Base
   end
 
   def update_next_check_at
-    if last_checked_at && last_checked_at_changed?
+    if last_checked_at && (last_checked_at_changed? || interval_cd_changed?)
       self.next_check_at = last_checked_at + interval.increment
     end
   end
