@@ -8,7 +8,13 @@ class User < ActiveRecord::Base
   has_many :event_trackers
   has_many :contacts
 
+  ROLE_ROOT = 'root'
+  ROLE_ADMIN = 'admin'
+  ROLE_CONTACT = 'contact'
+  AVAILABLE_ROLES = [ROLE_ROOT, ROLE_ADMIN, ROLE_CONTACT]
+
   validates :name, presence: true
+  validates :role, inclusion: { in: AVAILABLE_ROLES }
 
   accepts_nested_attributes_for :organization
 
