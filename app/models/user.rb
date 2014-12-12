@@ -11,4 +11,5 @@ class User < ActiveRecord::Base
   validates :name, presence: true
 
   accepts_nested_attributes_for :organization
+
 end
