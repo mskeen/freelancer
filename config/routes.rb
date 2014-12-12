@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-
-  # Override Devise routes
   devise_for :users, skip: [:registrations]
   devise_scope :user do
     scope '/account' do

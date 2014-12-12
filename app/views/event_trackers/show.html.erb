@@ -1,11 +1,59 @@
 <% title @event_tracker.name %>
 <% heading @event_tracker.name %>
 
-<%= link_to "Edit", edit_event_tracker_path(@event_tracker) %> |
-<%= link_to "Delete", @event_tracker, method: :delete %>
+<h3>Settings</h3>
+<p>
+  <strong>Frequency:</strong> <%= @event_tracker.interval.display %>
+</p>
 
-<%= @event_tracker.interval.display %>
+<p>
+  <%= link_to "Edit", edit_event_tracker_path(@event_tracker), class: "btn btn-primary btn-sm active" %>
+  <%= link_to "Delete", @event_tracker, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default btn-sm" %>
+</p>
 
-<h4>Your unique tracker URL</h4>
 
-<p><%= ping_event_tracker_url(@event_tracker.token) %></p>
+<h3>Your unique tracker URL</h3>
+
+<pre><%= ping_event_tracker_url(@event_tracker.token) %></pre>
+
+<h3>Sample Code (Ruby)</h3>
+
+<pre>
+# Simple Ping
+Net::HTTP.get(URI("<%= ping_event_tracker_url(@event_tracker.token) %>"))
+</pre>
+<pre>
+# Ping with time taken and a comment
+start = Time.now
+records_added = execute_task
+time_taken = (Time.now - start).round(1)
+Net::HTTP.get(URI(URI.escape("<%= ping_event_tracker_url(@event_tracker.token) %>?time=#{time_taken}&comment=#{added_count} records added")))
+</pre>
+
+<h3>Recent History</h3>
+
+<table class="table table-condensed table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Time</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @event_tracker.pings.limit(20).each do |ping| %>
+      <tr>
+        <td>
+          <%= standard_datetime(ping.created_at) %>
+        </td>
+        <td>
+          <%= ping.task_length %>
+        </td>
+        <td>
+          <%= ping.comment %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
