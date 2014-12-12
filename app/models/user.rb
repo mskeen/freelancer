@@ -20,6 +20,14 @@ class User < ActiveRecord::Base
 
   after_create :assign_organization_user
 
+  def admin?
+    [ROLE_ROOT, ROLE_ADMIN].include? role
+  end
+
+  def root?
+    role == ROLE_ROOT
+  end
+
   private
 
   def assign_organization_user
