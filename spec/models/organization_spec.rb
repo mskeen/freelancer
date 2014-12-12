@@ -4,7 +4,6 @@ RSpec.describe Organization, :type => :model do
 
   it { should belong_to :user }
   it { should have_many :users }
-  it { should have_many :contacts }
   it { should have_many :event_trackers }
 
   describe Organization, 'Name' do

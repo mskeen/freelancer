@@ -1,0 +1,5 @@
+<%- if @user.errors.any? %>
+  $('#modal-window').html('<%= escape_javascript(render('modal')) %>');
+<%- else %>
+  $('#modal-window').modal('hide')
+<%- end %>

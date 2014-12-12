@@ -8,12 +8,12 @@ class User < ActiveRecord::Base
 
   belongs_to :organization
   has_many :event_trackers
-  has_many :contacts
 
   lookup_group :role, :role_cd do
-    option :root,      1, 'Root'
-    option :admin,     2, 'Admin'
-    option :contact,   9, 'Contact'
+    option :root,       1, 'Root'
+    option :admin,      2, 'Admin'
+    option :contact,    9, 'Contact'
+    option :guest,     99, 'Guest'
   end
 
   validates :name, presence: true
@@ -22,6 +22,12 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :organization
 
   after_create :assign_organization_user
+
+  scope :active, -> { where(is_active: true) }
+
+  def self.roles_for_select
+    User.roles - [User.role(:guest), User.role(:root)]
+  end
 
   def admin?
     [User.role(:admin), User.role(:root)].include? role

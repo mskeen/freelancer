@@ -49,6 +49,7 @@ group :test do
   gem 'capybara', '~> 2.4.4'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
+  gem 'selenium-webdriver'
 end
 
 gem 'lookup_column', git: 'git://github.com/mskeen/lookup_column.git'

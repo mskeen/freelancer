@@ -13,7 +13,7 @@
         <% if @user.new_record? || !@user.root? %>
           <%= f.select :role_cd,
                 options_from_collection_for_select(
-                  User.roles - [User.role(:root)], :id, :display, @user.role_cd
+                  User.roles_for_select, :id, :display, @user.role_cd
                 ),
 
                 label: "Role" %>

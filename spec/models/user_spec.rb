@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 
   it { should have_many :event_trackers }
-  it { should have_many :contacts }
   it { should belong_to :organization }
 
   describe User, 'name' do
@@ -69,4 +68,15 @@ RSpec.describe User, type: :model do
       expect(contact_user.organization.user).to eq root_user
     end
   end
+
+  describe User, 'scopes' do
+    it "active only returns active users" do
+      user = FactoryGirl.create(:user, is_active: false)
+      user2 = FactoryGirl.create(:user, id: 2, organization: user.organization, email: "e2@sample.com", is_active: true)
+      expect(user.organization.users.active).to include user2
+      expect(user.organization.users.active).to_not include user
+    end
+  end
+
+
 end
