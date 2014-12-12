@@ -4,33 +4,36 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  include LookupColumn
+
   belongs_to :organization
   has_many :event_trackers
   has_many :contacts
 
-  ROLE_ROOT = 'root'
-  ROLE_ADMIN = 'admin'
-  ROLE_CONTACT = 'contact'
-  AVAILABLE_ROLES = [ROLE_ROOT, ROLE_ADMIN, ROLE_CONTACT]
+  lookup_group :role, :role_cd do
+    option :root,      1, 'Root'
+    option :admin,     2, 'Admin'
+    option :contact,   9, 'Contact'
+  end
 
   validates :name, presence: true
-  validates :role, inclusion: { in: AVAILABLE_ROLES }
+  validates :role_cd, inclusion: { in: User.roles.map(&:id) }
 
   accepts_nested_attributes_for :organization
 
   after_create :assign_organization_user
 
   def admin?
-    [ROLE_ROOT, ROLE_ADMIN].include? role
+    [User.role(:admin), User.role(:root)].include? role
   end
 
   def root?
-    role == ROLE_ROOT
+    role == User.role(:root)
   end
 
   private
 
   def assign_organization_user
-    organization.update_attribute(:user_id, id) if role == ROLE_ROOT
+    organization.update_attribute(:user_id, id) if root?
   end
 end

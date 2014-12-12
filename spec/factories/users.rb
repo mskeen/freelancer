@@ -12,6 +12,6 @@ FactoryGirl.define do
     name         'first last'
     email        'contact@sample.com'
     password     'password'
-    role         User::ROLE_CONTACT
+    role_cd      User.role(:contact).id
   end
 end
