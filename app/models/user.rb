@@ -18,4 +18,11 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :organization
 
+  after_create :assign_organization_user
+
+  private
+
+  def assign_organization_user
+    organization.update_attribute(:user_id, id) if role == ROLE_ROOT
+  end
 end

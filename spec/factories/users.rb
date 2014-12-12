@@ -6,4 +6,12 @@ FactoryGirl.define do
     password     'password'
     association  :organization, name: "Widget Co."
   end
+
+  factory :contact_user, class: :user do
+    id           2
+    name         'first last'
+    email        'contact@sample.com'
+    password     'password'
+    role         User::ROLE_CONTACT
+  end
 end

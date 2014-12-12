@@ -26,4 +26,17 @@ RSpec.describe User, type: :model do
       expect(user.errors[:role].count).to eq 1
     end
   end
+
+  describe User, 'organization' do
+    it "is assigned to the user if role is root" do
+      user = FactoryGirl.create(:user)
+      expect(user.organization.user).to eq user
+    end
+
+    it 'is not assigned to a new user if it''s not a root user' do
+      root_user = FactoryGirl.create(:user)
+      contact_user = FactoryGirl.create(:contact_user, organization: root_user.organization)
+      expect(contact_user.organization.user).to eq root_user
+    end
+  end
 end
