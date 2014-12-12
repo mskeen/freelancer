@@ -25,10 +25,6 @@ class User < ActiveRecord::Base
 
   scope :active, -> { where(is_active: true) }
 
-  def self.roles_for_select
-    User.roles - [User.role(:guest), User.role(:root)]
-  end
-
   def admin?
     [User.role(:admin), User.role(:root)].include? role
   end
