@@ -13,21 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20141212153329) do
 
-  create_table "contacts", force: true do |t|
-    t.integer  "user_id",                         null: false
-    t.integer  "organization_id",                 null: false
-    t.string   "name",                            null: false
-    t.string   "email",                           null: false
-    t.boolean  "is_primary",      default: false, null: false
-    t.boolean  "is_active",       default: true,  null: false
-    t.boolean  "is_paused",       default: false, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "contacts", ["organization_id"], name: "index_contacts_on_organization_id", using: :btree
-  add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
-
   create_table "event_tracker_pings", force: true do |t|
     t.integer  "event_tracker_id"
     t.string   "task_length"
