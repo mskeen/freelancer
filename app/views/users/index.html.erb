@@ -1,0 +1,42 @@
+<% title "User Accounts" %>
+<% heading 'Organization User Accounts' %>
+
+<div class="row">
+  <div class="col-md-6">
+
+    <table class="table table-condensed table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td>
+              <%= user.name %>
+            </td>
+            <td>
+              <%= user.email %>
+            </td>
+            <td>
+              <%= user.role.display %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <p>
+      <%= link_to "Add a User", new_user_path,
+                  remote: true,
+                  data: { toggle: "modal", target: "#modal-window"},
+                  class: 'btn btn-primary' %>
+    </p>
+
+  </div>
+</div>
+

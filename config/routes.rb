@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   get 'ping/:id', to: 'event_trackers#ping', as: :ping_event_tracker
 
+  resources :users
   resources :event_trackers
   resources :contacts, except: [:index, :show]
   resource :account, only: [:edit, :update]
