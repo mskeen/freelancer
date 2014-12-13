@@ -17,6 +17,8 @@ class UserCreator
     end
   end
 
+  private
+
   def generate_password
     SecureRandom.hex[0..(PASSWORD_LENGTH - 1)]
   end
