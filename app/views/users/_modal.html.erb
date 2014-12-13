@@ -18,6 +18,12 @@
 
                 label: "Role" %>
         <% end %>
+        <% if @user.new_record? %>
+          <%= f.form_group :invites do %>
+            <%= f.check_box :is_invited, label: 'Allow user to login (an email invitation will be sent).' %>
+          <% end %>
+        <% end %>
+
       </div>
       <div class="modal-footer">
         <a class="btn" data-dismiss="modal" aria-hidden="true">Close</a>

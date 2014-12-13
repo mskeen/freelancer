@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141212220731) do
+ActiveRecord::Schema.define(version: 20141213202041) do
 
   create_table "event_tracker_pings", force: true do |t|
     t.integer  "event_tracker_id"
@@ -72,6 +72,8 @@ ActiveRecord::Schema.define(version: 20141212220731) do
     t.integer  "organization_id"
     t.integer  "role_cd",                default: 1
     t.boolean  "is_active",              default: true, null: false
+    t.boolean  "is_invited",             default: true
+    t.integer  "created_by_user_id"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

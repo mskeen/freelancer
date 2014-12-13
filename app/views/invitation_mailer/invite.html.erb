@@ -1,0 +1,13 @@
+<p>Hello <%= @user.name %></p>
+
+<p><%= @user.creator.name %> has invited you to join the <%= @user.organization.name %>
+organization on <%= AppConfig.site_name %>.</p>
+
+<p>To login, please use the following:</p>
+
+<p>URL      : <%= new_user_session_url %><br/>
+Email    : <%= @user.email %><br/>
+Password : <%= @password %><br/>
+</p>
+
+<p>Please remember to change your password once you login.</p>

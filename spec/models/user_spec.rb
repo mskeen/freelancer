@@ -4,6 +4,7 @@ RSpec.describe User, type: :model do
 
   it { should have_many :event_trackers }
   it { should belong_to :organization }
+  it { should belong_to :creator }
 
   describe User, 'name' do
     it 'cannot have a blank name' do

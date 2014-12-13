@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   include LookupColumn
 
   belongs_to :organization
+  belongs_to :creator, foreign_key: :created_by_user_id, class_name: "User"
   has_many :event_trackers
 
   lookup_group :role, :role_cd do

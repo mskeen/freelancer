@@ -18,7 +18,8 @@ class UsersController < ApplicationController
 
   def create
     @user = current_user.organization.users.new(user_params)
-    @user.save
+    @user.creator = current_user
+    UserCreator.new(@user).create
     respond_with(@user)
   end
 
@@ -39,7 +40,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :role_cd)
+    params.require(:user).permit(:name, :email, :role_cd, :is_invited)
   end
 
 end
