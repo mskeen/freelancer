@@ -5,4 +5,4 @@ class BrochureController
   index: ->
     console.log "Brochure index"
 
-this.Freelancer.brochure = new BrochureController
+this.freelancer.brochure = new BrochureController

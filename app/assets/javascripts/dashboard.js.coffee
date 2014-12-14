@@ -5,4 +5,4 @@ class DashboardController
   index: ->
     console.log "Dashboard index"
 
-this.Freelancer.dashboard = new DashboardController
+this.freelancer.dashboard = new DashboardController
