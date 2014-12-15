@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.8'
 gem 'mysql2'
+gem 'connection_pool'
 gem 'devise'
 
 gem 'sass-rails', '~> 4.0.3'
