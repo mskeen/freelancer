@@ -1,0 +1,22 @@
+<tr id="user-<%= user.id %>">
+  <% if current_user.admin? %>
+    <td>
+      <%= link_to user.name,
+                  edit_user_path(user),
+                  remote: true,
+                  data: { toggle: "modal", target: "#modal-window"} %>
+    </td>
+    <td><%= user.email %></td>
+    <td><%= user.role.display %></td>
+    <td>
+      <% unless user.root? %>
+        <%= link_to user, method: :delete, data: { confirm: 'Are you sure?' }, id: "delete-user-#{user.id}" do %>
+          <i class="fa fa-trash"></i>
+        <% end %>
+      <% end %>
+    </td>
+  <% else %>
+    <td><%= user.name %></td>
+    <td><%= user.role.display %></td>
+  <% end %>
+</tr>

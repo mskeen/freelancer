@@ -4,40 +4,8 @@
 <div class="row">
   <div class="col-md-6">
 
-    <table class="table table-condensed table-hover">
-      <thead>
-        <tr>
-          <% if current_user.admin? %>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-          <% else %>
-            <th>Name</th>
-            <th>Role</th>
-          <% end %>
-        </tr>
-      </thead>
 
-      <tbody>
-        <% @users.each do |user| %>
-          <tr>
-            <% if current_user.admin? %>
-              <td>
-                <%= link_to user.name,
-                            edit_user_path(user),
-                            remote: true,
-                            data: { toggle: "modal", target: "#modal-window"} %>
-              </td>
-              <td><%= user.email %></td>
-              <td><%= user.role.display %></td>
-            <% else %>
-              <td><%= user.name %></td>
-              <td><%= user.role.display %></td>
-            <% end %>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <%= render partial: 'list', locals: { users: @users } %>
 
     <% if current_user.admin? %>
       <p>

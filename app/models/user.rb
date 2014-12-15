@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
 
   after_create :assign_organization_user
 
-  scope :active, -> { where(is_active: true) }
+  default_scope { where(is_active: true) }
 
   def admin?
     [User.role(:admin), User.role(:root)].include? role

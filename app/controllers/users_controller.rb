@@ -25,18 +25,18 @@ class UsersController < ApplicationController
 
   def update
     @user.update(user_params)
-    respond_with(@user)
+    @users = current_user.organization.users
   end
 
   def destroy
-    @user.update_attributes(is_deleted: true)
+    @user.update_attributes(is_active: false)
     respond_with(@user, location: users_path)
   end
 
   private
 
   def set_user
-    @user = current_user.organization.users.active.find(params[:id])
+    @user = current_user.organization.users.find(params[:id])
   end
 
   def user_params

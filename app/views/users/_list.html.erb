@@ -1,0 +1,19 @@
+<table id="user-list" class="table table-condensed table-hover">
+  <thead>
+    <tr>
+      <% if current_user.admin? %>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th></th>
+      <% else %>
+        <th>Name</th>
+        <th>Role</th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render partial: 'user', collection: users %>
+  </tbody>
+</table>

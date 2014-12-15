@@ -71,11 +71,11 @@ RSpec.describe User, type: :model do
   end
 
   describe User, 'scopes' do
-    it "active only returns active users" do
+    it "default_scope only returns active users" do
       user = FactoryGirl.create(:user, is_active: false)
       user2 = FactoryGirl.create(:user, id: 2, organization: user.organization, email: "e2@sample.com", is_active: true)
-      expect(user.organization.users.active).to include user2
-      expect(user.organization.users.active).to_not include user
+      expect(user.organization.users).to include user2
+      expect(user.organization.users).to_not include user
     end
   end
 

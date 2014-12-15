@@ -2,4 +2,5 @@
   $('#modal-window').html('<%= escape_javascript(render('modal')) %>');
 <%- else %>
   $('#modal-window').modal('hide')
+  $('#user-list').replaceWith('<%= escape_javascript(render partial: "list", locals: {users: @users}) %>');
 <%- end %>
