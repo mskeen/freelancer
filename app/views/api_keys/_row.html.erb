@@ -1,0 +1,11 @@
+<tr id="api-key-<%= api_key.id %>"class="api-key">
+  <td><%= api_key.user.name %></td>
+  <td><%= api_key.user.role.name.capitalize %></td>
+  <td><%= api_key.token %></td>
+  <td></td>
+  <td>
+    <%= link_to api_key, method: :delete, data: { remote: true, confirm: 'Are you sure?' }, id: "delete-api-key-#{api_key.id}", class: "delete-api-key" do %>
+      <i class="fa fa-trash"></i>
+    <% end %>
+  </td>
+</tr>

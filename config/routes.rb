@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :users
   resources :event_trackers
   resources :contacts, except: [:index, :show]
+  resources :api_keys, only: [:create, :destroy]
   resource :account, only: [:edit, :update] do
     patch 'update_password', on: :member
   end

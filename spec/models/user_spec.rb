@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 
   it { should have_many :event_trackers }
+  it { should have_many :api_keys }
+  it { should have_many :contacts }
   it { should belong_to :organization }
   it { should belong_to :creator }
 

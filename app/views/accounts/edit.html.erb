@@ -9,6 +9,7 @@
       <%= f.text_field :email %>
       <% if current_user.admin? %>
         <%= f.fields_for :organization do |f_org| %>
+          <%= f_org.hidden_field :id %>
           <%= f_org.text_field :name, label: "Organization Name" %>
         <% end %>
       <% end %>
@@ -25,7 +26,26 @@
 
   </div>
   <div class="col-md-6">
-    <h3><i class="fa fa-exclamation-circle"></i> Some other Details</h3>
+    <h3><i class="fa fa-exclamation-circle"></i> API Keys</h3>
+    <table id="api-key-list" class="table table-condensed table-hover">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Role</th>
+          <th>Token</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% current_user.organization.api_keys.each do |key| %>
+          <%= render partial: "api_keys/row", locals: { api_key: key } %>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to "Add a Key", api_keys_path, method: :post, remote: true, class: "btn btn-primary" %>
 
   </div>
 </div>

@@ -41,4 +41,23 @@ feature 'view the account page when logged in' do
     click_on 'Sign in'
     expect(page).to have_css 'h1', text: 'Dashboard'
   end
+
+  scenario 'user can add an API Key', js: true do
+    user = sign_in_existing_user
+    visit edit_account_path
+    click_on "Add a Key"
+    expect(page).to have_css "tr.api-key", count: 1
+  end
+
+  scenario 'user can delete an API Key', js: true do
+    user = sign_in_existing_user
+    visit edit_account_path
+    click_on "Add a Key"
+    click_on "Add a Key"
+    expect(page).to have_css "tr.api-key", count: 2
+    click_on "delete-api-key-#{ApiKey.last.id}"
+    page.driver.browser.switch_to.alert.accept
+    expect(page).to have_css "tr.api-key", count: 1
+  end
+
 end
