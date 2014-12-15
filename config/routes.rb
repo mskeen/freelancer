@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   resources :users
   resources :event_trackers
   resources :contacts, except: [:index, :show]
-  resource :account, only: [:edit, :update]
+  resource :account, only: [:edit, :update] do
+    patch 'update_password', on: :member
+  end
 
   unauthenticated do
     root 'brochure#index'

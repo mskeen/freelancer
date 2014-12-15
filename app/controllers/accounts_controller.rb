@@ -12,11 +12,21 @@ class AccountsController < ApplicationController
     respond_with current_user, location: edit_account_path
   end
 
+  def update_password
+    @user = User.find(current_user.id)
+    if @user.update_with_password(user_params)
+      flash.now[:notice] = "Your password has been updated."
+      sign_in @user, :bypass => true
+    end
+    render "edit"
+  end
+
   private
 
   def user_params
     params.require(:user).permit(
-      :name, :email, organization_attributes: [:name]
+      :name, :email, :password, :password_confirmation, :current_password,
+      organization_attributes: [:name]
     )
   end
 
