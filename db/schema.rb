@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141213202041) do
+ActiveRecord::Schema.define(version: 20141215155755) do
+
+  create_table "contacts", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "alertable_id"
+    t.string   "alertable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
 
   create_table "event_tracker_pings", force: true do |t|
     t.integer  "event_tracker_id"
@@ -27,7 +37,6 @@ ActiveRecord::Schema.define(version: 20141213202041) do
     t.integer  "user_id",                                    null: false
     t.integer  "organization_id",                            null: false
     t.string   "name",                                       null: false
-    t.string   "email",                                      null: false
     t.string   "notes"
     t.integer  "interval_cd",                default: 2,     null: false
     t.string   "token",           limit: 16,                 null: false

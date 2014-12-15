@@ -69,7 +69,7 @@ RSpec.describe EventTrackerStatusManager, type: :model do
     expect{mgr.change_to_status EventTracker.status(:alert)}.to(
       change{ ActionMailer::Base.deliveries.size }.by(1)
     )
-    expect(ActionMailer::Base.deliveries.last.to).to eq ['test@sample.com']
+    expect(ActionMailer::Base.deliveries.last.to).to eq ['email@sample.com']
     expect(ActionMailer::Base.deliveries.last.subject).to eq 'Alert: first event tracker'
   end
 
@@ -79,13 +79,13 @@ RSpec.describe EventTrackerStatusManager, type: :model do
     expect{ mgr.change_to_status EventTracker.status(:ok) }.to(
       change{ ActionMailer::Base.deliveries.size }.by(1)
     )
-    expect(ActionMailer::Base.deliveries.last.to).to eq ['test@sample.com']
+    expect(ActionMailer::Base.deliveries.last.to).to eq ['email@sample.com']
     expect(ActionMailer::Base.deliveries.last.subject).to eq 'Alert Cleared: first event tracker'
   end
 end
 
 def build_with_status(old_status)
+  FactoryGirl.create(:user)
   FactoryGirl.create(:event_tracker,
-                    email: 'test@sample.com',
                     status: EventTracker.status(old_status))
 end

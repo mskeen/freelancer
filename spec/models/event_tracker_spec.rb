@@ -27,27 +27,12 @@ RSpec.describe EventTracker, type: :model do
     expect(FactoryGirl.build(:event_tracker, status_cd: nil)).to_not be_valid
   end
 
-  it 'requires an email' do
-    expect(FactoryGirl.build(:event_tracker, email: nil)).to_not be_valid
-  end
-
-  it 'requires multiple emails to be separated by commas' do
-    et = FactoryGirl.build(:event_tracker, email: 'e1@sample.com e2@sample.com')
-    expect(et).to_not be_valid
-    expect(et.errors[:email]).to include 'must be valid format and separated by commas'
-  end
-
-  it 'requires valid email formats' do
-    et = FactoryGirl.build(:event_tracker, email: 'e1sample.com, e2@sample.com')
-    expect(et).to_not be_valid
-    expect(et.errors[:email]).to include 'must be valid format and separated by commas'
-  end
-
   # associations
   describe 'associations' do
     it { should belong_to :user }
     it { should belong_to :organization }
     it { should have_many :pings }
+    it { should have_many :contacts }
   end
 
   describe EventTracker, 'token' do
@@ -150,10 +135,38 @@ RSpec.describe EventTracker, type: :model do
     end
 
     it "reports false when not recently pinged" do
+      FactoryGirl.create(:user)
       t1 = FactoryGirl.create(:event_tracker, next_check_at: Time.zone.now - 65.minutes, last_ping_at: Time.zone.now - 90.minutes)
       t1.status = EventTracker.status(:ok)
       t1.check(Time.zone.now)
       expect(t1.status.name).to eq :alert
+    end
+  end
+
+  describe "contacts" do
+    it "requires at least one user_id" do
+      FactoryGirl.create(:user)
+      t1 = FactoryGirl.build(:event_tracker, contact_user_ids: [])
+      expect(t1).to_not be_valid
+    end
+
+    it "adds a user when appropriate" do
+      u = FactoryGirl.create(:user)
+      u2 = FactoryGirl.create(:contact_user, organization: u.organization)
+      t1 = FactoryGirl.create(:event_tracker, contact_user_ids: [1])
+      t1.contact_user_ids = [1, u2.id]
+      t1.save
+      expect(t1.contacts.size).to eq 2
+    end
+
+    it "removes a user when appropriate" do
+      u = FactoryGirl.create(:user)
+      u2 = FactoryGirl.create(:contact_user, organization: u.organization)
+      t1 = FactoryGirl.create(:event_tracker, contact_user_ids: [1, u2.id])
+      t1.contact_user_ids = [1]
+      t1.save
+      t1.reload
+      expect(t1.contacts.size).to eq 1
     end
   end
 

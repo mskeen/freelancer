@@ -21,7 +21,7 @@ class EventTrackersController < ApplicationController
   end
 
   def new
-    @event_tracker = EventTracker.new(email: current_user.email)
+    @event_tracker = EventTracker.new(contact_user_ids: [current_user.id])
     respond_with(@event_tracker)
   end
 
@@ -30,12 +30,14 @@ class EventTrackersController < ApplicationController
 
   def create
     @event_tracker = current_user.event_trackers.new(event_tracker_params)
+    @event_tracker.contact_user_ids = params[:event_tracker][:contact_user_ids]
     @event_tracker.organization = current_user.organization
     @event_tracker.save
     respond_with(@event_tracker)
   end
 
   def update
+    @event_tracker.contact_user_ids = params[:event_tracker][:contact_user_ids]
     @event_tracker.update(event_tracker_params)
     respond_with(@event_tracker)
   end
@@ -53,7 +55,7 @@ class EventTrackersController < ApplicationController
 
   def event_tracker_params
     params.require(:event_tracker).permit(
-      :name, :email, :notes, :interval_cd,
-      :sort_order, :is_paused, :is_deleted)
+      :name, :email, :notes, :interval_cd, :sort_order, :is_paused,
+      :is_deleted, contact_user_ids: [])
   end
 end

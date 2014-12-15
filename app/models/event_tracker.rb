@@ -1,16 +1,16 @@
 # Model EventTracker
 class EventTracker < ActiveRecord::Base
   include LookupColumn
+  include Contactable
 
   belongs_to :user
   belongs_to :organization
+  has_many :contacts, as: :alertable
   has_many :pings, class_name: 'EventTrackerPing', dependent: :destroy
 
   validates :name, presence: true
-  validates :email, presence: true
   validates :interval_cd, presence: true
   validates :status_cd, presence: true
-  validate :validate_email_list
 
   before_create :generate_token
   before_save :update_next_check_at
@@ -60,7 +60,7 @@ class EventTracker < ActiveRecord::Base
   end
 
   def emails
-    email ? email.split(',').map(&:strip) : []
+    contacts.map { |c| c.email }
   end
 
   def due?
@@ -82,17 +82,10 @@ class EventTracker < ActiveRecord::Base
     end
   end
 
-  def validate_email_list
-    emails.each do |addr|
-      unless addr.match(/\A[^@]+@[^@]+\z/)
-        errors.add(:email, 'must be valid format and separated by commas')
-      end
-    end
-  end
-
   def update_next_check_at
     if last_checked_at && (last_checked_at_changed? || interval_cd_changed?)
       self.next_check_at = last_checked_at + interval.increment
     end
   end
+
 end

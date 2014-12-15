@@ -7,7 +7,8 @@
     <%= f.radio_button(:interval_cd, interval.id, label: interval.display, inline: true ) %>
   <% end %><br/><br/>
 
-  <%= f.text_field :email %>
+  <%= f.collection_check_boxes :contact_user_ids, current_user.organization.users, :id, :name, label: "Contacts" %>
+
   <%= f.text_area :notes %>
 
   <%= f.submit "Save", class: "btn btn-primary active" %>
