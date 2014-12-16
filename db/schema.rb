@@ -11,15 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141215214440) do
+ActiveRecord::Schema.define(version: 20141216184441) do
 
   create_table "api_keys", force: true do |t|
-    t.integer  "organization_id",                null: false
-    t.integer  "user_id",                        null: false
-    t.string   "token",                          null: false
-    t.boolean  "is_active",       default: true, null: false
+    t.integer  "organization_id",                  null: false
+    t.integer  "user_id",                          null: false
+    t.string   "token",                            null: false
+    t.boolean  "is_active",         default: true, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "hourly_rate_limit", default: 1000
   end
 
   add_index "api_keys", ["organization_id"], name: "index_api_keys_on_organization_id", using: :btree

@@ -2,10 +2,16 @@
   <td><%= api_key.user.name %></td>
   <td><%= api_key.user.role.name.capitalize %></td>
   <td><%= api_key.token %></td>
-  <td></td>
+  <td><%= api_key.hourly_rate_limit %></td>
   <td>
-    <%= link_to api_key, method: :delete, data: { remote: true, confirm: 'Are you sure?' }, id: "delete-api-key-#{api_key.id}", class: "delete-api-key" do %>
-      <i class="fa fa-trash"></i>
+    <% if current_user.admin? %>
+      <%= link_to edit_api_key_path(api_key), remote: true, data: { toggle: "modal", target: "#modal-window"}, id: "edit-api-key-#{api_key.id}" do %>
+        <i class="fa fa-edit"></i>
+      <% end %>
+
+      <%= link_to api_key, method: :delete, data: { remote: true, confirm: 'Are you sure?' }, id: "delete-api-key-#{api_key.id}", class: "delete-api-key" do %>
+        <i class="fa fa-trash"></i>
+      <% end %>
     <% end %>
   </td>
 </tr>

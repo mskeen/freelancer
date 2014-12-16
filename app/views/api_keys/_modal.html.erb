@@ -1,0 +1,24 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+      <h4>API Key Properties</h4>
+    </div>
+
+    <%= bootstrap_form_for(@api_key, remote: true, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-9") do |f| %>
+      <div class="modal-body">
+        <%= f.select :hourly_rate_limit, [100000,10000,1000,100] %>
+        <%= f.collection_select :user_id, current_user.organization.users, :id, :name %>
+      </div>
+      <div class="modal-footer">
+        <a class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+        <%= f.submit "Update Key", class: "btn btn-primary" %>
+      </div>
+
+      <div class="spinner"></div>
+
+    <% end %>
+
+ </div>
+</div>

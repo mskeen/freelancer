@@ -9,7 +9,7 @@ FactoryGirl.define do
 
   factory :contact_user, class: :user do
     id           2
-    name         'first last'
+    name         'first last2'
     email        'contact@sample.com'
     password     'password'
     role_cd      User.role(:contact).id

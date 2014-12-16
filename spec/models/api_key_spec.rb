@@ -1,8 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe ApiKey, :type => :model do
+
   it { should belong_to :organization }
   it { should belong_to :user }
+
+
+  describe "defaults" do
+    key = ApiKey.new
+
+    it "hourly_rate_limit to 10000" do
+      expect(key.hourly_rate_limit).to eq 1000
+    end
+  end
 
   describe 'validations' do
     it 'requires a user' do
@@ -25,7 +35,7 @@ RSpec.describe ApiKey, :type => :model do
   end
 
   describe 'scopes' do
-    it 'only shows activekeys for default scope' do
+    it 'only shows active keys for default scope' do
       user = FactoryGirl.create(:user)
       key1 = FactoryGirl.create(:api_key, user: user)
       key2 = FactoryGirl.create(:api_key, id: 2, user: user, is_active: false)
