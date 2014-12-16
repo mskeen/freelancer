@@ -4,7 +4,7 @@ RSpec.describe ApiKey, :type => :model do
 
   it { should belong_to :organization }
   it { should belong_to :user }
-
+  it { should have_many :api_calls }
 
   describe "defaults" do
     key = ApiKey.new

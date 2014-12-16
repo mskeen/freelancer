@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141216184441) do
+ActiveRecord::Schema.define(version: 20141216221353) do
+
+  create_table "api_calls", force: true do |t|
+    t.integer  "api_key_id"
+    t.datetime "starting_at"
+    t.datetime "ending_at"
+    t.integer  "usage_count", default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "api_calls", ["api_key_id"], name: "index_api_calls_on_api_key_id", using: :btree
 
   create_table "api_keys", force: true do |t|
     t.integer  "organization_id",                  null: false

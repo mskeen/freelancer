@@ -1,6 +1,7 @@
 class ApiKey < ActiveRecord::Base
   belongs_to :organization
   belongs_to :user
+  has_many :api_calls
 
   TOKEN_LENGTH = 32
 
