@@ -4,7 +4,7 @@
 <div class="row">
 
   <div class="col-md-6">
-    <h3><i class="fa fa-exclamation-circle"></i> Your Details</h3>
+    <h3><i class="fa fa-user"></i> Your Details</h3>
     <%= bootstrap_form_for(current_user, url: account_path, label_errors: true) do |f| %>
       <%= f.text_field :name %>
       <%= f.text_field :email %>
@@ -17,7 +17,7 @@
       <%= f.submit "Save", class: "btn btn-primary active" %>
     <% end %>
 
-    <h3><i class="fa fa-exclamation-circle"></i> Change Password</h3>
+    <h3><i class="fa fa-asterisk"></i> Change Password</h3>
     <%= bootstrap_form_for(current_user, url: update_password_account_path, label_errors: true) do |f| %>
       <%= f.password_field :current_password %>
       <%= f.password_field :password %>
@@ -27,7 +27,7 @@
   </div>
 
   <div class="col-md-6">
-    <h3><i class="fa fa-exclamation-circle"></i> API Keys</h3>
+    <h3><i class="fa fa-cloud"></i> API Keys</h3>
     <table id="api-key-list" class="table table-condensed table-hover">
       <thead>
         <tr>
@@ -45,7 +45,7 @@
         <% end %>
       </tbody>
     </table>
-    <%= link_to "Add a Key", api_keys_path, method: :post, remote: true, class: "btn btn-primary" %>
+    <%= link_to "Add a Key", api_keys_path, method: :post, remote: true, class: "btn btn-primary active" %>
   </div>
 
 </div>
