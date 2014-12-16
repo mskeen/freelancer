@@ -8,7 +8,9 @@
       <%= link_to edit_api_key_path(api_key), remote: true, data: { toggle: "modal", target: "#modal-window"}, id: "edit-api-key-#{api_key.id}" do %>
         <i class="fa fa-edit"></i>
       <% end %>
+    <% end %>
 
+    <% if current_user.admin? || current_user == api_key.user %>
       <%= link_to api_key, method: :delete, data: { remote: true, confirm: 'Are you sure?' }, id: "delete-api-key-#{api_key.id}", class: "delete-api-key" do %>
         <i class="fa fa-trash"></i>
       <% end %>
