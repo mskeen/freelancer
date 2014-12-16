@@ -16,7 +16,7 @@ class AccountsController < ApplicationController
     @user = User.find(current_user.id)
     if @user.update_with_password(user_params)
       flash.now[:notice] = "Your password has been updated."
-      sign_in @user, :bypass => true
+      sign_in @user, bypass: true
     end
     render "edit"
   end
