@@ -7,6 +7,8 @@ class TaskCategory < ActiveRecord::Base
 
   before_create :set_organization
 
+  default_scope { where(is_active: true) }
+
   private
 
   def set_organization
@@ -14,6 +16,7 @@ class TaskCategory < ActiveRecord::Base
   end
 
   def self.for_user(user)
-    user.organization.task_categories.where(["user_id = ? or is_shared = 1", user.id])
+    user.organization.task_categories
+      .where(["user_id = ? or is_shared = ?", user.id, true])
   end
 end
