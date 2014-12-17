@@ -18,6 +18,15 @@ Rails.application.routes.draw do
     patch 'update_password', on: :member
   end
 
+  # API
+  namespace :api do
+    namespace :v1 do
+      get '/organization', to: 'organization#show'
+      put '/organization', to: 'organization#update'
+      resources :users, only: [:index, :show, :create, :update, :destroy]
+    end
+  end
+
   unauthenticated do
     root 'brochure#index'
   end
