@@ -9,6 +9,9 @@ RSpec.describe TaskCategory, :type => :model do
     scenario "is_shared is false" do
       expect(TaskCategory.new.is_shared).to be false
     end
+    scenario "is_active is false" do
+      expect(TaskCategory.new.is_active).to be true
+    end
   end
 
   describe 'validation' do
@@ -18,10 +21,6 @@ RSpec.describe TaskCategory, :type => :model do
 
     it 'requires name' do
       expect(FactoryGirl.build(:task_category, name: nil)).to_not be_valid
-    end
-
-    it 'requires short_name' do
-      expect(FactoryGirl.build(:task_category, short_name: nil)).to_not be_valid
     end
   end
 

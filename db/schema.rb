@@ -89,8 +89,8 @@ ActiveRecord::Schema.define(version: 20141217151911) do
     t.integer  "user_id",                         null: false
     t.integer  "organization_id",                 null: false
     t.string   "name",                            null: false
-    t.string   "short_name",                      null: false
     t.boolean  "is_shared",       default: false, null: false
+    t.boolean  "is_active",       default: true,  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -99,14 +99,15 @@ ActiveRecord::Schema.define(version: 20141217151911) do
   add_index "task_categories", ["user_id"], name: "index_task_categories_on_user_id", using: :btree
 
   create_table "tasks", force: true do |t|
-    t.integer  "user_id",                           null: false
-    t.integer  "task_category_id",                  null: false
-    t.string   "title",                             null: false
-    t.string   "description",          default: "", null: false
-    t.integer  "weight",               default: 1,  null: false
+    t.integer  "user_id",                             null: false
+    t.integer  "task_category_id",                    null: false
+    t.string   "title",                               null: false
+    t.string   "description",          default: "",   null: false
+    t.integer  "weight",               default: 1,    null: false
     t.date     "due_date"
-    t.integer  "frequency_cd",         default: 0,  null: false
-    t.integer  "created_by_user_id",                null: false
+    t.integer  "frequency_cd",         default: 0,    null: false
+    t.boolean  "is_active",            default: true, null: false
+    t.integer  "created_by_user_id",                  null: false
     t.datetime "completed_at"
     t.integer  "completed_by_user_id"
     t.datetime "created_at"

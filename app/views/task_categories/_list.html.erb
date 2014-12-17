@@ -1,0 +1,17 @@
+<div id="task-categories">
+  <% if task_categories.size == 0 %>
+    <p id='no-categories-prompt'>
+      To get started, you'll need to add at least one category.
+    </p>
+  <% end %>
+  <ul id="task-categories-list">
+    <%= render task_categories %>
+  </ul>
+  <p>
+    <%= link_to "Add a category", new_task_category_path,
+                remote: true,
+                data: { toggle: "modal", target: "#modal-window"},
+                class: 'btn btn-primary'
+    %>
+  </p>
+</div>

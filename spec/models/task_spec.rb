@@ -8,6 +8,9 @@ RSpec.describe Task, :type => :model do
     scenario "description is blank but not null" do
       expect(Task.new.description).to eq ''
     end
+    scenario "is_active is true" do
+      expect(Task.new.is_active).to eq true
+    end
   end
 
   describe 'validation' do

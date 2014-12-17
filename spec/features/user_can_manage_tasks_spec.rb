@@ -12,12 +12,22 @@ feature 'task management' do
   describe "logged-in user" do
     let!(:user) { sign_in_existing_user }
 
-    it 'sees tasks page' do
+    scenario 'sees tasks page' do
       visit root_path
       click_on  'Tasks'
-      expect(page).to have_title "Tasks - #{AppConfig.site_name}"
+      expect(page).to have_title "Tasks"
       expect(page).to have_css 'h1', text: "Tasks"
     end
+
+    scenario 'can add the first task category', js: true do
+      visit tasks_path
+      click_on "Add a category"
+      fill_in "Name", with: "cat1"
+      check 'Share with all people in this organization'
+      click_on 'Save'
+      expect(page).to have_css 'li.task-category', text: 'cat1'
+    end
+
    end
 
 end

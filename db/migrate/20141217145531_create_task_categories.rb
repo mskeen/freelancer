@@ -4,8 +4,8 @@ class CreateTaskCategories < ActiveRecord::Migration
       t.references :user, index: true, null: false
       t.references :organization, index: true, null: false
       t.string :name, null: false
-      t.string :short_name, null: false
       t.boolean :is_shared, null: false, default: false
+      t.boolean :is_active, null: false, default: true
       t.timestamps
     end
   end

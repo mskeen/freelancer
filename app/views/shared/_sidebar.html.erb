@@ -36,10 +36,10 @@
         Events
       </li>
     <% end %>
-    <%= link_to '#' do %>
-      <li <%= current_item_class('abc') %>>
+    <%= link_to tasks_path do %>
+      <li <%= current_item_class('tasks') %>>
         <i class="fa fa-check-square"></i><br/>
-        Todo
+        Tasks
       </li>
     <% end %>
     <%= link_to users_path do %>

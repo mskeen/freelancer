@@ -4,5 +4,4 @@ class TaskCategory < ActiveRecord::Base
   has_many :tasks
 
   validates :name, presence: true
-  validates :short_name, presence: true
 end

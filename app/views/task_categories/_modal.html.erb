@@ -1,0 +1,26 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+      <h4><%= @task_category.new_record? ? "New" : "Edit" %> Task Category</h4>
+    </div>
+
+    <%= bootstrap_form_for(@task_category, remote: true, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f| %>
+      <div class="modal-body">
+        <%= f.text_field :name %>
+        <%= f.form_group :sharing do %>
+          <%= f.check_box :is_shared, label: 'Share with all people in this organization' %>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <a class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+        <%= f.submit "Save", class: "btn btn-primary" %>
+      </div>
+
+      <div class="spinner"></div>
+
+    <% end %>
+
+ </div>
+</div>

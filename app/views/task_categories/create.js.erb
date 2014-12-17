@@ -1,0 +1,7 @@
+<%- if @task_category.errors.any? %>
+  $('#modal-window').html('<%= escape_javascript(render('modal')) %>');
+<%- else %>
+  $('#modal-window').modal('hide')
+  $('#task-categories-list').append('<%= escape_javascript(render @task_category) %>');
+  $('#no-categories-prompt').hide()
+<%- end %>
