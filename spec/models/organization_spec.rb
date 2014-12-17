@@ -6,6 +6,7 @@ RSpec.describe Organization, :type => :model do
   it { should have_many :users }
   it { should have_many :event_trackers }
   it { should have_many :api_keys }
+  it { should have_many :todo_categories }
 
   describe Organization, 'Name' do
     it 'cannot have a blank name' do

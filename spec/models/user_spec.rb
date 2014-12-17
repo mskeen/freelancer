@@ -5,6 +5,8 @@ RSpec.describe User, type: :model do
   it { should have_many :event_trackers }
   it { should have_many :api_keys }
   it { should have_many :contacts }
+  it { should have_many :todo_categories }
+  it { should have_many :todos }
   it { should belong_to :organization }
   it { should belong_to :creator }
 

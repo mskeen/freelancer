@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141216221353) do
+ActiveRecord::Schema.define(version: 20141217151911) do
 
   create_table "api_calls", force: true do |t|
     t.integer  "api_key_id"
@@ -84,6 +84,37 @@ ActiveRecord::Schema.define(version: 20141216221353) do
     t.datetime "updated_at"
     t.integer  "user_id"
   end
+
+  create_table "todo_categories", force: true do |t|
+    t.integer  "user_id",                         null: false
+    t.integer  "organization_id",                 null: false
+    t.string   "name",                            null: false
+    t.string   "short_name",                      null: false
+    t.boolean  "is_shared",       default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "todo_categories", ["organization_id"], name: "index_todo_categories_on_organization_id", using: :btree
+  add_index "todo_categories", ["user_id"], name: "index_todo_categories_on_user_id", using: :btree
+
+  create_table "todos", force: true do |t|
+    t.integer  "user_id",                           null: false
+    t.integer  "todo_category_id",                  null: false
+    t.string   "title",                             null: false
+    t.string   "description",          default: "", null: false
+    t.integer  "weight",               default: 1,  null: false
+    t.date     "due_date"
+    t.integer  "frequency_cd",         default: 0,  null: false
+    t.integer  "created_by_user_id",                null: false
+    t.datetime "completed_at"
+    t.integer  "completed_by_user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "todos", ["todo_category_id"], name: "index_todos_on_todo_category_id", using: :btree
+  add_index "todos", ["user_id"], name: "index_todos_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",   null: false
