@@ -3,7 +3,7 @@ class TasksController < ApplicationController
 
   def index
     @tasks = current_user.tasks
-    @task_categories = current_user.task_categories
+    @task_categories = TaskCategory.for_user(current_user)
   end
 
 end

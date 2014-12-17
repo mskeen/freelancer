@@ -37,6 +37,7 @@ group :development do
   gem 'pow-debug'
   gem 'guard-rspec'
   gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'annotate'
 end
 

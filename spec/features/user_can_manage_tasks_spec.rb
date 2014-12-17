@@ -28,6 +28,15 @@ feature 'task management' do
       expect(page).to have_css 'li.task-category', text: 'cat1'
     end
 
+    scenario 'can view tasks in a category', js: true do
+      cat = FactoryGirl.create(:task_category, user: user,
+        organization: user.organization, name: "cat 1")
+      FactoryGirl.create(:task, user: user, task_category: cat, title: "task 1")
+      visit tasks_path
+      click_on "cat 1"
+      expect(page).to have_css 'li.task', text: 'task 1'
+    end
+
    end
 
 end

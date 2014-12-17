@@ -6,5 +6,6 @@
     <%= render partial: 'task_categories/list', locals: { task_categories: @task_categories} %>
   </div>
   <div class="col-md-9">
+    <%= render partial: 'list', locals: { tasks: @task_categories.first.try(:tasks) } %>
   </div>
 </div>
