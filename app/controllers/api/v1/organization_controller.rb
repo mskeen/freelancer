@@ -9,6 +9,7 @@ module Api
 
       def update
         @organization.update_attributes(organization_params)
+        respond_with @organization
       end
 
       private

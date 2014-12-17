@@ -11,10 +11,8 @@ module Api
 
       def verify_access
         authenticate_or_request_with_http_token do |token, options|
-          puts "TOKEN:::: #{token}"
           (@api_key = ApiKey.find_by_token(token)).present?
         end
-        # render json: { error: 'Invalid API key.' }, status: :unauthorized
       end
 
       def verify_rate_limit
