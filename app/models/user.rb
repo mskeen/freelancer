@@ -11,8 +11,8 @@ class User < ActiveRecord::Base
   has_many :event_trackers
   has_many :contacts
   has_many :api_keys
-  has_many :todo_categories
-  has_many :todos
+  has_many :task_categories
+  has_many :tasks
 
   lookup_group :role, :role_cd do
     option :root,       1, 'Root'

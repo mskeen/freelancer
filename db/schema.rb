@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 20141217151911) do
     t.integer  "user_id"
   end
 
-  create_table "todo_categories", force: true do |t|
+  create_table "task_categories", force: true do |t|
     t.integer  "user_id",                         null: false
     t.integer  "organization_id",                 null: false
     t.string   "name",                            null: false
@@ -95,12 +95,12 @@ ActiveRecord::Schema.define(version: 20141217151911) do
     t.datetime "updated_at"
   end
 
-  add_index "todo_categories", ["organization_id"], name: "index_todo_categories_on_organization_id", using: :btree
-  add_index "todo_categories", ["user_id"], name: "index_todo_categories_on_user_id", using: :btree
+  add_index "task_categories", ["organization_id"], name: "index_task_categories_on_organization_id", using: :btree
+  add_index "task_categories", ["user_id"], name: "index_task_categories_on_user_id", using: :btree
 
-  create_table "todos", force: true do |t|
+  create_table "tasks", force: true do |t|
     t.integer  "user_id",                           null: false
-    t.integer  "todo_category_id",                  null: false
+    t.integer  "task_category_id",                  null: false
     t.string   "title",                             null: false
     t.string   "description",          default: "", null: false
     t.integer  "weight",               default: 1,  null: false
@@ -113,8 +113,8 @@ ActiveRecord::Schema.define(version: 20141217151911) do
     t.datetime "updated_at"
   end
 
-  add_index "todos", ["todo_category_id"], name: "index_todos_on_todo_category_id", using: :btree
-  add_index "todos", ["user_id"], name: "index_todos_on_user_id", using: :btree
+  add_index "tasks", ["task_category_id"], name: "index_tasks_on_task_category_id", using: :btree
+  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",   null: false

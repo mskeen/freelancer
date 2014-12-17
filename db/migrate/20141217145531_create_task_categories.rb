@@ -1,6 +1,6 @@
-class CreateTodoCategories < ActiveRecord::Migration
+class CreateTaskCategories < ActiveRecord::Migration
   def change
-    create_table :todo_categories do |t|
+    create_table :task_categories do |t|
       t.references :user, index: true, null: false
       t.references :organization, index: true, null: false
       t.string :name, null: false

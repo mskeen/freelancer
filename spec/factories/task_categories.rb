@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :todo_category do
+  factory :task_category do
     id              1
     name            'category'
     short_name      'cat'

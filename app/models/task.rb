@@ -1,8 +1,8 @@
-class Todo < ActiveRecord::Base
+class Task < ActiveRecord::Base
   include LookupColumn
 
   belongs_to :user
-  belongs_to :todo_category
+  belongs_to :task_category
 
   lookup_group :frequency, :frequency_cd do
     option :none,         0, 'None',          interval: 0
