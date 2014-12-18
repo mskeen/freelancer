@@ -1,3 +1,10 @@
-.selected-category {
-  background-color: blue;
+.task-category {
+  padding: 0;
+  a {
+    padding: 10px 15px;
+    display: block;
+  }
+}
+.active {
+  a { color: white; }
 }

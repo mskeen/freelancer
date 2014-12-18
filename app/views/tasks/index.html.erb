@@ -2,10 +2,10 @@
 <% heading "Tasks" %>
 
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-2">
     <%= render partial: 'task_categories/list', locals: { task_categories: @task_categories} %>
   </div>
-  <div class="col-md-9">
+  <div class="col-md-10">
     <%= render partial: 'list', locals: { tasks: @task_categories.first.try(:tasks) } %>
   </div>
 </div>

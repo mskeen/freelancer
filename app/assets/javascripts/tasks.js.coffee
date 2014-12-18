@@ -1,8 +1,8 @@
 class TasksController
 
   select_task_category: (category_id) ->
-    $(".selected-category").removeClass("selected-category")
-    $("#task-category-" + category_id).addClass("selected-category")
+    $(".active").removeClass("active")
+    $("#task-category-" + category_id).addClass("active")
 
   setup_click_handler: ->
     $(".task-category").on "click", ->

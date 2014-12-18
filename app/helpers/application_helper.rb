@@ -30,6 +30,13 @@ module ApplicationHelper
     d.strftime('%b %-d, %Y at %H:%M') if d
   end
 
+  def short_date(d)
+    return '' if d.nil?
+    format = '%b %-d'
+    format += ', %Y' unless d.year == Date.today.year
+    d.strftime(format)
+  end
+
   def time_ago(d)
     time_ago_in_words(d) + ' ago' if d
   end

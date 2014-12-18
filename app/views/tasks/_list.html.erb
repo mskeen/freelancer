@@ -1,3 +1,16 @@
-<ul id="tasks">
-  <%= render tasks if tasks %>
-</ul>
+<table id="tasks" class="table table-condensed table-hover">
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Category</th>
+      <th>Due</th>
+      <th>Repeat</th>
+      <th>Weight</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render tasks if tasks %>
+  </tbody>
+</table>

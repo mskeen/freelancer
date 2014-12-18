@@ -34,7 +34,7 @@ feature 'task management' do
       FactoryGirl.create(:task, user: user, task_category: cat, title: "task 1")
       visit tasks_path
       click_on "cat 1"
-      expect(page).to have_css 'li.task', text: 'task 1'
+      expect(page).to have_css 'tr.task', text: 'task 1'
     end
 
    end
