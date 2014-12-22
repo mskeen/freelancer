@@ -2,7 +2,7 @@
   <td><%= task.title %></td>
   <td><%= task.task_category.name %></td>
   <td><%= short_date(task.due_date) %></td>
-  <td><%= task.frequency.name %></td>
-  <td><%= task.weight %></td>
+  <td><%= task.frequency.display %></td>
+  <td><%= display_weight(task.weight) %></td>
   <td></td>
 </tr>
