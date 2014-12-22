@@ -1,5 +1,6 @@
 <tr id="task-<%= task.id %>" class="task">
-  <td><%= task.title %></td>
+  <td><%= link_to task.title, edit_task_path(task), remote: true,
+            data: { toggle: "modal", target: "#modal-window"} %></td>
   <td><%= task.task_category.name %></td>
   <td><%= short_date(task.due_date) %></td>
   <td><%= task.frequency.display %></td>

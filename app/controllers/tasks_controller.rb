@@ -1,5 +1,8 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!
+  before_action :set_task, only: [:edit, :update, :destroy]
+
+  respond_to :html, :js
 
   def index
     @tasks = current_user.tasks
@@ -17,7 +20,23 @@ class TasksController < ApplicationController
     )
   end
 
+  def edit
+    render :new
+  end
+
+  def update
+    @task.update_attributes(task_params)
+  end
+
+  def destroy
+    @tasks.update_attribute(:is_actitve, false)
+  end
+
   private
+
+  def set_task
+    @task = current_user.tasks.find(params[:id])
+  end
 
   def task_params
     params.require(:task).permit(:title, :description, :due_date, :frequency_cd,

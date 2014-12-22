@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :event_trackers
-  resources :tasks, only: [:index, :create] do
+  resources :tasks, only: [:index, :create, :edit, :update] do
     match 'new/:task_category_id', to: 'tasks#new', via: :get, as: "new", on: :collection
   end
   resources :task_categories, only: [:show, :new, :create, :edit, :update, :destroy ]

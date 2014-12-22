@@ -48,6 +48,17 @@ feature 'task management' do
       expect(page).to have_css 'tr.task', text: 'title of task 1'
     end
 
+    scenario 'can edit a task', js: true do
+      cat = FactoryGirl.create(:task_category, user: user,
+        organization: user.organization, name: "cat 1")
+      FactoryGirl.create(:task, user: user, task_category: cat, title: "task 1")
+      visit tasks_path
+      click_on "task 1"
+      fill_in 'Title', with: 'title of task 1 - edited'
+      click_on 'Save Task'
+      expect(page).to have_css 'tr.task', text: 'title of task 1 - edited'
+    end
+
    end
 
 end
