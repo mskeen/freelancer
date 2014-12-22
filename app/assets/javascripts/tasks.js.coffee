@@ -5,7 +5,7 @@ class TasksController
     $("#task-category-" + category_id).addClass("active")
 
   setup_click_handler: ->
-    $(".task-category").on "click", ->
+    $("#task-categories-list").on "click", "li.task-category", ->
       freelancer.tasks.select_task_category($(@).data("id"))
 
   init: ->
