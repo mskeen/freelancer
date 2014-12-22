@@ -59,6 +59,17 @@ feature 'task management' do
       expect(page).to have_css 'tr.task', text: 'title of task 1 - edited'
     end
 
+    scenario 'can edit a task', js: true do
+      cat = FactoryGirl.create(:task_category, user: user,
+        organization: user.organization, name: "cat 1")
+      task = FactoryGirl.create(:task, user: user, task_category: cat, title: "task 1")
+      visit tasks_path
+      expect(page).to have_css "tr.task", count: 1
+      click_on "delete-task-#{task.id}"
+      page.driver.browser.switch_to.alert.accept
+      expect(page).to have_css "tr.task", count: 0
+    end
+
    end
 
 end

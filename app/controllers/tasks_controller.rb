@@ -29,7 +29,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @tasks.update_attribute(:is_actitve, false)
+    @task.update_attribute(:is_active, false)
   end
 
   private
