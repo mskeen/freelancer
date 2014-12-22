@@ -22,6 +22,14 @@ RSpec.describe Task, :type => :model do
       expect(FactoryGirl.build(:task, title: nil)).to_not be_valid
     end
 
+    it 'requires weight' do
+      expect(FactoryGirl.build(:task, weight: nil)).to_not be_valid
+    end
+
+    it 'requires frequency' do
+      expect(FactoryGirl.build(:task, frequency_cd: nil)).to_not be_valid
+    end
+
   end
 
 end

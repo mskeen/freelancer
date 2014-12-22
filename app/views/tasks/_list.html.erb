@@ -1,16 +1,28 @@
-<table id="tasks" class="table table-condensed table-hover">
-  <thead>
-    <tr>
-      <th>Task</th>
-      <th>Category</th>
-      <th>Due</th>
-      <th>Repeat</th>
-      <th>Weight</th>
-      <th></th>
-    </tr>
-  </thead>
+<div id="tasks">
+  <table class="table table-condensed table-hover">
+    <thead>
+      <tr>
+        <th>Task</th>
+        <th>Category</th>
+        <th>Due</th>
+        <th>Repeat</th>
+        <th>Weight</th>
+        <th></th>
+      </tr>
+    </thead>
 
-  <tbody>
-    <%= render tasks if tasks %>
-  </tbody>
-</table>
+    <tbody>
+      <%= render tasks if tasks %>
+    </tbody>
+  </table>
+
+  <% if task_category %>
+    <p>
+      <%= link_to "Add a task", new_tasks_path(task_category),
+                  remote: true,
+                  data: { toggle: "modal", target: "#modal-window"},
+                  class: 'btn btn-primary'
+      %>
+    </p>
+  <% end %>
+</div>

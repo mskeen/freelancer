@@ -6,13 +6,9 @@
     <%= render partial: 'task_categories/list', locals: { task_categories: @task_categories} %>
   </div>
   <div class="col-md-10">
-    <%= render partial: 'list', locals: { tasks: @task_categories.first.try(:tasks) } %>
-    <p>
-      <%= link_to "Add a task", new_task_path,
-                  remote: true,
-                  data: { toggle: "modal", target: "#modal-window"},
-                  class: 'btn btn-primary'
-      %>
-    </p>
+    <%= render partial: 'list',
+               locals: { tasks: @task_categories.first.try(:tasks),
+                         task_category: @task_categories.first }
+    %>
   </div>
 </div>

@@ -17,5 +17,7 @@ class Task < ActiveRecord::Base
   end
 
   validates :title, presence: true
+  validates :weight, presence: true
+  validates :frequency_cd, presence: true
 
 end

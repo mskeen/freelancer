@@ -44,6 +44,8 @@ feature 'task management' do
       click_on 'Add a task'
       fill_in 'Title', with: 'title of task 1'
       fill_in 'Description', with: 'description of task 1'
+      click_on 'Save Task'
+      expect(page).to have_css 'tr.task', text: 'title of task 1'
     end
 
    end

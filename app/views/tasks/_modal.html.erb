@@ -8,6 +8,7 @@
 
     <%= bootstrap_form_for(@task, remote: true, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f| %>
       <div class="modal-body">
+        <%= f.hidden_field :task_category_id %>
         <%= f.text_field :title %>
         <%= f.text_area :description %>
         <%= f.date_field :due_date %>
@@ -17,7 +18,7 @@
       </div>
       <div class="modal-footer">
         <a class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-        <%= f.submit "Save", class: "btn btn-primary" %>
+        <%= f.submit "Save Task", class: "btn btn-primary" %>
       </div>
 
       <div class="spinner"></div>
