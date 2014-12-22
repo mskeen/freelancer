@@ -21,8 +21,8 @@ feature 'task management' do
 
     scenario 'can add the first task category', js: true do
       visit tasks_path
-      click_on "Add a category"
-      fill_in "Name", with: "cat1"
+      click_on 'Add a category'
+      fill_in 'Name', with: 'cat1'
       check 'Share with all people in this organization'
       click_on 'Save'
       expect(page).to have_css 'li.task-category', text: 'cat1'
@@ -33,8 +33,17 @@ feature 'task management' do
         organization: user.organization, name: "cat 1")
       FactoryGirl.create(:task, user: user, task_category: cat, title: "task 1")
       visit tasks_path
-      click_on "cat 1"
+      click_on 'cat 1'
       expect(page).to have_css 'tr.task', text: 'task 1'
+    end
+
+    scenario 'can add a task', js: true do
+      cat = FactoryGirl.create(:task_category, user: user,
+        organization: user.organization, name: "cat 1")
+      visit tasks_path
+      click_on 'Add a task'
+      fill_in 'Title', with: 'title of task 1'
+      fill_in 'Description', with: 'description of task 1'
     end
 
    end

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :event_trackers
-  resources :tasks, only: [:index]
+  resources :tasks, only: [:index, :new, :create]
   resources :task_categories, only: [:show, :new, :create, :edit, :update, :destroy ]
   resources :contacts, except: [:index, :show]
   resources :api_keys, only: [:create, :destroy, :edit, :update]
