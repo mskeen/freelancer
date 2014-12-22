@@ -29,11 +29,11 @@ class EventTrackerStatusManager
   end
 
   def ok_to_alert
-    EventTrackerMailer.alert(@event_tracker).deliver
+    EventTrackerMailer.alert(@event_tracker).deliver_now
   end
 
   def alert_to_ok
-    EventTrackerMailer.alert_cleared(@event_tracker).deliver
+    EventTrackerMailer.alert_cleared(@event_tracker).deliver_now
   end
 
   def paused_to_ok

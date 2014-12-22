@@ -25,7 +25,7 @@ class UserCreator
 
   def invite(user, pw)
     MailerUtility.try_delivery do
-      InvitationMailer.invite(user, pw).deliver
+      InvitationMailer.invite(user, pw).deliver_now
     end
   end
 

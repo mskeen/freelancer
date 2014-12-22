@@ -1,10 +1,12 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.0'
 gem 'mysql2'
 gem 'connection_pool'
 gem 'devise'
+gem 'responders', '~> 2.0'
+gem 'web-console', '~> 2.0'
 
 gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass', '3.2.0'
