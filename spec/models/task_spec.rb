@@ -4,6 +4,7 @@ RSpec.describe Task, :type => :model do
   it { should belong_to :user }
   it { should belong_to :completed_by_user }
   it { should belong_to :task_category }
+  it { should have_one :spawned_task }
 
   describe "defaults" do
     scenario "description is blank but not null" do
@@ -62,6 +63,12 @@ RSpec.describe Task, :type => :model do
       expect(@task.completed_at).to_not be_nil
     end
 
+    it 'marks the task as complete? = true' do
+      expect(@task).to_not be_complete
+      @task.complete!(@user)
+      expect(@task).to be_complete
+    end
+
     it 'assigns the task to the user''s completed list' do
       @task.complete!(@user)
       expect(@user.completed_tasks.size).to eq 1
@@ -73,6 +80,19 @@ RSpec.describe Task, :type => :model do
         raise_error 'AlreadyCompleteError'
       )
     end
+
+    it 'doesn''t spawn a new task if no-repeat' do
+      @task.update_attribute(:frequency_cd, Task.frequency(:none).id)
+      @task.complete!(@user)
+      expect(@task.spawned_task).to be_nil
+    end
+
+    it 'spawns a new task when weekly' do
+      @task.update_attribute(:frequency_cd, Task.frequency(:weekly).id)
+      @task.complete!(@user)
+      expect(@task.spawned_task).to_not be_nil
+    end
+
   end
 
   describe 'undo_completion!' do
