@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Task, :type => :model do
   it { should belong_to :user }
+  it { should belong_to :completed_by_user }
   it { should belong_to :task_category }
 
   describe "defaults" do
@@ -29,7 +30,71 @@ RSpec.describe Task, :type => :model do
     it 'requires frequency' do
       expect(FactoryGirl.build(:task, frequency_cd: nil)).to_not be_valid
     end
+  end
 
+  describe 'default_scope' do
+    it 'only includes items that are active' do
+      task1 = FactoryGirl.create(:task)
+      task2 = FactoryGirl.create(:task, id: 2, is_active: false)
+      expect(Task.incomplete).to include task1
+      expect(Task.incomplete).to_not include task2
+    end
+  end
+
+  describe 'incomplete' do
+    it 'only includes items that haven''t been completed' do
+      task1 = FactoryGirl.create(:task)
+      task2 = FactoryGirl.create(:task, id: 2, completed_at: Time.zone.now)
+      expect(Task.incomplete).to include task1
+      expect(Task.incomplete).to_not include task2
+    end
+  end
+
+  describe 'complete!' do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      @task = FactoryGirl.create(:task, user: @user)
+    end
+
+    it 'marks the task as done' do
+      @task.complete!(@user)
+      expect(@task.completed_by_user).to eq @user
+      expect(@task.completed_at).to_not be_nil
+    end
+
+    it 'assigns the task to the user''s completed list' do
+      @task.complete!(@user)
+      expect(@user.completed_tasks.size).to eq 1
+    end
+
+    it 'can only be completed if incomplete' do
+      @task.complete!(@user)
+      expect { @task.complete!(@user) }.to(
+        raise_error 'AlreadyCompleteError'
+      )
+    end
+  end
+
+  describe 'undo_completion!' do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      @task = FactoryGirl.create(:task,
+        user: @user, completed_at: Time.zone.now, completed_by_user: @user
+      )
+    end
+
+    it 'marks the task as incomplete' do
+      @task.undo_completion!
+      expect(@task.completed_by_user).to be_nil
+      expect(@task.completed_at).to be_nil
+    end
+
+    it 'can only be undone if complete' do
+      @task.undo_completion!
+      expect { @task.undo_completion! }.to(
+        raise_error 'NotCompleteError'
+      )
+    end
   end
 
 end

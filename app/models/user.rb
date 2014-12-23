@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :api_keys
   has_many :task_categories
   has_many :tasks
+  has_many :completed_tasks, foreign_key: :completed_by_user_id, class_name: "Task"
 
   lookup_group :role, :role_cd do
     option :root,       1, 'Root'

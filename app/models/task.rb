@@ -3,6 +3,7 @@ class Task < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :task_category
+  belongs_to :completed_by_user, class_name: "User", foreign_key: :completed_by_user_id
 
   lookup_group :frequency, :frequency_cd do
     option :none,         0, 'None',          interval: 0
@@ -20,4 +21,22 @@ class Task < ActiveRecord::Base
   validates :weight, presence: true
   validates :frequency_cd, presence: true
 
+  default_scope { where(is_active: true) }
+  scope :incomplete, -> { where(completed_at: nil) }
+
+  def complete!(user)
+    fail 'AlreadyCompleteError' if completed_at
+    update_attributes(
+      completed_at: Time.zone.now,
+      completed_by_user_id: user.id
+    )
+  end
+
+  def undo_completion!
+    fail 'NotCompleteError' unless completed_at
+    update_attributes(
+      completed_at: nil,
+      completed_by_user_id: nil
+    )
+  end
 end

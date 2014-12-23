@@ -7,6 +7,7 @@ RSpec.describe User, type: :model do
   it { should have_many :contacts }
   it { should have_many :task_categories }
   it { should have_many :tasks }
+  it { should have_many :completed_tasks }
   it { should belong_to :organization }
   it { should belong_to :creator }
 
