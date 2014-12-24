@@ -11,6 +11,10 @@ feature 'task management' do
 
   describe "logged-in user" do
     let!(:user) { sign_in_existing_user }
+    let(:cat) do
+      FactoryGirl.create(:task_category, user: user,
+        organization: user.organization, name: "cat 1")
+    end
 
     scenario 'sees tasks page' do
       visit root_path
@@ -29,8 +33,6 @@ feature 'task management' do
     end
 
     scenario 'can view tasks in a category', js: true do
-      cat = FactoryGirl.create(:task_category, user: user,
-        organization: user.organization, name: "cat 1")
       FactoryGirl.create(:task, user: user, task_category: cat, title: "task 1")
       visit tasks_path
       click_on 'cat 1'
@@ -38,8 +40,7 @@ feature 'task management' do
     end
 
     scenario 'can add a task', js: true do
-      cat = FactoryGirl.create(:task_category, user: user,
-        organization: user.organization, name: "cat 1")
+      cat
       visit tasks_path
       click_on 'Add a task'
       fill_in 'Title', with: 'title of task 1'
@@ -49,8 +50,6 @@ feature 'task management' do
     end
 
     scenario 'can edit a task', js: true do
-      cat = FactoryGirl.create(:task_category, user: user,
-        organization: user.organization, name: "cat 1")
       FactoryGirl.create(:task, user: user, task_category: cat, title: "task 1")
       visit tasks_path
       click_on "task 1"
@@ -60,8 +59,6 @@ feature 'task management' do
     end
 
     scenario 'can edit a task', js: true do
-      cat = FactoryGirl.create(:task_category, user: user,
-        organization: user.organization, name: "cat 1")
       task = FactoryGirl.create(:task, user: user, task_category: cat, title: "task 1")
       visit tasks_path
       expect(page).to have_css "tr.task", count: 1
@@ -69,6 +66,27 @@ feature 'task management' do
       page.driver.browser.switch_to.alert.accept
       expect(page).to have_css "tr.task", count: 0
     end
+
+    scenario 'can mark a task as complete', js: true do
+      task = FactoryGirl.create(:task, user: user, task_category: cat, title: "task 1")
+      visit tasks_path
+      click_on "task-complete-#{task.id}"
+      expect(page).to have_css "tr.success", count: 1
+      task.reload
+      expect(task).to be_complete
+    end
+
+    scenario 'can undo a completion', js: true do
+      task = FactoryGirl.create(:task, user: user, task_category: cat, title: "task 1")
+      visit tasks_path
+      click_on "task-complete-#{task.id}"
+      expect(page).to have_css "tr.success", count: 1
+      click_on "task-complete-undo-#{task.id}"
+      expect(page).to have_css "tr.success", count: 0
+      task.reload
+      expect(task).to_not be_complete
+    end
+
 
    end
 

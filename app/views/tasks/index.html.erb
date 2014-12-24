@@ -7,7 +7,7 @@
   </div>
   <div class="col-md-10">
     <%= render partial: 'list',
-               locals: { tasks: @task_categories.first.try(:tasks),
+               locals: { tasks: @task_categories.first.try(:tasks).try(:incomplete),
                          task_category: @task_categories.first }
     %>
   </div>

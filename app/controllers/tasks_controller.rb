@@ -5,7 +5,6 @@ class TasksController < ApplicationController
   respond_to :html, :js
 
   def index
-    @tasks = current_user.tasks.incomplete
     @task_categories = TaskCategory.for_user(current_user)
   end
 

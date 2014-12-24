@@ -1,1 +1,1 @@
-$("#tasks").replaceWith("<%= escape_javascript(render partial: 'tasks/list', locals: { tasks: @task_category.tasks, task_category: @task_category }) %>");
+$("#tasks").replaceWith("<%= escape_javascript(render partial: 'tasks/list', locals: { tasks: @task_category.tasks.incomplete, task_category: @task_category }) %>");
