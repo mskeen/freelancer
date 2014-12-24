@@ -1,7 +1,7 @@
 <tr id="task-<%= task.id %>" class="task <%= 'success' if task.complete? %>">
   <% if task.complete? %>
     <td>
-      <%= link_to destroy_task_completions_path(task), method: :delete,
+      <%= link_to task_completion_path(task), method: :delete,
             remote: true, id: "task-complete-undo-#{task.id}" do %>
         <i class="fa fa-check-square-o"></i>
       <% end %>

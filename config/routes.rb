@@ -14,9 +14,7 @@ Rails.application.routes.draw do
   resources :event_trackers
   resources :tasks, only: [:index, :create, :edit, :update, :destroy] do
     match 'new/:task_category_id', to: 'tasks#new', via: :get, as: "new", on: :collection
-    resources :completions, controller: 'task_completions', only: [:new] do
-      match '', to: 'task_completions#destroy', via: :delete, as: "destroy", on: :collection
-    end
+    resource :completion, controller: 'task_completions', only: [:new, :destroy]
   end
   resources :task_categories, only: [:show, :new, :create, :edit, :update, :destroy ]
   resources :contacts, except: [:index, :show]
