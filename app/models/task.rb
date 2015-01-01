@@ -54,6 +54,7 @@ class Task < ActiveRecord::Base
     self.spawned_task = self.dup
     self.spawned_task.due_date = (self.due_date || Time.zone.now) +
       self.frequency.interval
+    self.spawned_task.reminder_sent_at = nil
     self.spawned_task.save!
   end
 end

@@ -15,6 +15,9 @@
         <%= f.select :frequency_cd, options_from_collection_for_select(
               Task.frequencies, :id, :display), label: "Repeat" %>
         <%= f.select :weight, [1,2,5,10] %>
+        <%= f.form_group :reminder_info do %>
+          <%= f.check_box :send_reminder %>
+        <% end %>
       </div>
       <div class="modal-footer">
         <a class="btn" data-dismiss="modal" aria-hidden="true">Close</a>

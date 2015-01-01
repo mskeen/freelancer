@@ -89,8 +89,12 @@ RSpec.describe Task, :type => :model do
 
     it 'spawns a new task when weekly' do
       @task.update_attribute(:frequency_cd, Task.frequency(:weekly).id)
+      @task.update_attribute(:reminder_sent_at, Time.zone.now)
       @task.complete!(@user)
       expect(@task.spawned_task).to_not be_nil
+      expect(@task.spawned_task.completed_at).to be_nil
+      expect(@task.spawned_task.user).to eq @task.user
+      expect(@task.spawned_task.reminder_sent_at).to be_nil
     end
 
   end

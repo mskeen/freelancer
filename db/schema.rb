@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141223224520) do
+ActiveRecord::Schema.define(version: 20141224190702) do
 
   create_table "api_calls", force: :cascade do |t|
     t.integer  "api_key_id",  limit: 4
@@ -99,20 +99,23 @@ ActiveRecord::Schema.define(version: 20141223224520) do
   add_index "task_categories", ["user_id"], name: "index_task_categories_on_user_id", using: :btree
 
   create_table "tasks", force: :cascade do |t|
-    t.integer  "user_id",              limit: 4,                  null: false
-    t.integer  "task_category_id",     limit: 4,                  null: false
-    t.string   "title",                limit: 255,                null: false
-    t.string   "description",          limit: 255, default: "",   null: false
-    t.integer  "weight",               limit: 4,   default: 1,    null: false
+    t.integer  "user_id",              limit: 4,                   null: false
+    t.integer  "task_category_id",     limit: 4,                   null: false
+    t.string   "title",                limit: 255,                 null: false
+    t.string   "description",          limit: 255, default: "",    null: false
+    t.integer  "weight",               limit: 4,   default: 1,     null: false
     t.date     "due_date"
-    t.integer  "frequency_cd",         limit: 4,   default: 0,    null: false
-    t.boolean  "is_active",            limit: 1,   default: true, null: false
-    t.integer  "created_by_user_id",   limit: 4,                  null: false
+    t.integer  "frequency_cd",         limit: 4,   default: 0,     null: false
+    t.boolean  "is_active",            limit: 1,   default: true,  null: false
+    t.integer  "created_by_user_id",   limit: 4,                   null: false
     t.datetime "completed_at"
     t.integer  "completed_by_user_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "spawned_task_id",      limit: 4
+    t.boolean  "send_reminder",        limit: 1,   default: false, null: false
+    t.integer  "reminder_lead_days",   limit: 4,   default: 1,     null: false
+    t.datetime "reminder_sent_at"
   end
 
   add_index "tasks", ["task_category_id"], name: "index_tasks_on_task_category_id", using: :btree

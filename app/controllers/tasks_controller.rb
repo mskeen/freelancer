@@ -39,7 +39,7 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :description, :due_date, :frequency_cd,
-      :weight, :task_category_id)
+      :weight, :task_category_id, :send_reminder, :reminder_lead_days)
   end
 
 end
