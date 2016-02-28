@@ -29,5 +29,4 @@ class AccountsController < ApplicationController
       organization_attributes: [:name, :id]
     )
   end
-
 end

@@ -9,3 +9,7 @@ Schedule cron tasks:
     whenever -w
 
 
+## Todo
+
+* email reminder service?  i.e. send this email to me again in 5 days
+

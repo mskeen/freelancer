@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141224190702) do
+ActiveRecord::Schema.define(version: 20160228215759) do
 
   create_table "api_calls", force: :cascade do |t|
     t.integer  "api_key_id",  limit: 4
@@ -85,6 +85,26 @@ ActiveRecord::Schema.define(version: 20141224190702) do
     t.integer  "user_id",    limit: 4
   end
 
+  create_table "sites", force: :cascade do |t|
+    t.integer  "user_id",         limit: 4
+    t.integer  "organization_id", limit: 4
+    t.string   "name",            limit: 255
+    t.string   "url",             limit: 255
+    t.string   "host",            limit: 255
+    t.string   "token",           limit: 255
+    t.integer  "interval_cd",     limit: 4
+    t.integer  "status_cd",       limit: 4
+    t.integer  "ping_status_cd",  limit: 4
+    t.datetime "last_checked_at"
+    t.datetime "next_check_at"
+    t.boolean  "is_deleted",      limit: 1
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "sites", ["organization_id"], name: "index_sites_on_organization_id", using: :btree
+  add_index "sites", ["user_id"], name: "index_sites_on_user_id", using: :btree
+
   create_table "task_categories", force: :cascade do |t|
     t.integer  "user_id",         limit: 4,                   null: false
     t.integer  "organization_id", limit: 4,                   null: false
@@ -149,4 +169,6 @@ ActiveRecord::Schema.define(version: 20141224190702) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "sites", "organizations"
+  add_foreign_key "sites", "users"
 end

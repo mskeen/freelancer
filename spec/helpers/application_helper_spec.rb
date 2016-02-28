@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ApplicationHelper, type: :helper do
+RSpec.describe ApplicationHelper, type: :helperi do
 
   describe "standard_datetime" do
     it "properly fomats a valid date" do
