@@ -1,0 +1,42 @@
+<% title @site.name %>
+<% heading @site.name %>
+
+<h3>Settings</h3>
+<p>
+  <strong>Frequency:</strong> <%= @site.interval.display %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_site_path(@site), class: "btn btn-primary btn-sm active" %>
+  <%= link_to "Delete", @site, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default btn-sm" %>
+</p>
+
+<h3>Recent History</h3>
+
+<% if 1 == 0 %>
+  <table class="table table-condensed table-hover">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Time</th>
+        <th>Comment</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @site.pings.limit(20).each do |ping| %>
+        <tr>
+          <td>
+            <%= standard_datetime(ping.created_at) %>
+          </td>
+          <td>
+            <%= ping.task_length %>
+          </td>
+          <td>
+            <%= ping.comment %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

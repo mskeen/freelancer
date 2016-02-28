@@ -1,0 +1,18 @@
+<%= bootstrap_form_for(@site, label_errors: true) do |f| %>
+
+  <%= f.text_field :name %>
+
+  <%= f.text_field :url %>
+
+  <%= f.label :interval_cd, "Ping Frequency" %><br/>
+  <% Site.intervals.each do |interval| %>
+    <%= f.radio_button(:interval_cd, interval.id, label: interval.display, inline: true ) %>
+  <% end %><br/><br/>
+
+  <%= f.text_field :host %>
+
+  <%= f.collection_check_boxes :contact_user_ids, current_user.organization.users, :id, :name, label: "Contacts" %>
+
+  <%= f.submit "Save", class: "btn btn-primary active" %>
+
+<% end %>

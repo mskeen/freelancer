@@ -1,0 +1,32 @@
+<% title 'Uptime Monitor' %>
+<% heading 'Uptime Monitor' %>
+
+<table class="table table-condensed table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Interval</th>
+      <th>Status</th>
+      <th>Last Checked</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sites.each do |site| %>
+      <tr class="site-row <%= tracker_class(site) %>">
+        <td>
+          <%= link_to site.name, site %>
+        </td>
+        <td><%= site.interval.display %></td>
+        <td><%= site.status.name.capitalize %></td>
+        <td>
+          <%= time_ago(site.last_checked_at) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Site', new_site_path, class: "btn btn-primary active " %>
