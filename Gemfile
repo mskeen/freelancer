@@ -1,9 +1,9 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.5.1'
 gem 'mysql2'
-gem 'connection_pool'
+gem 'connection_pool', '~> 2.1'
 gem 'devise'
 gem 'responders', '~> 2.0'
 gem 'web-console', '~> 2.0'
@@ -24,7 +24,7 @@ gem 'chart-js-rails'
 gem 'jbuilder', '~> 2.0'
 
 gem 'whenever', require: false
-
+gem 'sidekiq', '~> 3.4'
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'
