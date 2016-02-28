@@ -152,7 +152,7 @@ GEM
     jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.3)
-    libv8 (3.16.14.7)
+    libv8 (3.16.14.13)
     listen (2.8.4)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
