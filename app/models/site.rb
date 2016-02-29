@@ -47,6 +47,10 @@ class Site < ActiveRecord::Base
       (last_checked_at + interval.increment < Time.zone.now)
   end
 
+  def access_log_cmd
+    "ssh #{host} \"cat #{log_location}\""
+  end
+
   private
 
   def generate_token
