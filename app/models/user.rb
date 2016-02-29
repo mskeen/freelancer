@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   belongs_to :organization
   belongs_to :creator, foreign_key: :created_by_user_id, class_name: "User"
   has_many :sites
+  has_many :log_monitors
   has_many :event_trackers
   has_many :contacts
   has_many :api_keys

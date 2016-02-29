@@ -6,6 +6,7 @@ class CreateSites < ActiveRecord::Migration
       t.string :name
       t.string :url
       t.string :host
+      t.string :log_location
       t.string :token
       t.integer :interval_cd
       t.integer :status_cd

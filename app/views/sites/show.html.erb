@@ -11,6 +11,40 @@
   <%= link_to "Delete", @site, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default btn-sm" %>
 </p>
 
+<h3>Log Analysis</h3>
+
+<% if @site.log_monitors.size > 0 %>
+
+  <table class="table table-condensed table-hover">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Status</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @site.log_monitors.order(id: :desc).each do |mon| %>
+        <tr>
+          <td>
+            <%= mon.id %>
+          </td>
+          <td>
+            <%= mon.status.display %>
+          </td>
+          <td>
+            <%= mon.created_at %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<% end %>
+
+<%= link_to "New Log Monitor", new_site_log_monitor_path(@site), class: "btn btn-primary btn-sm active" %>
+
 <h3>Recent History</h3>
 
 <% if 1 == 0 %>

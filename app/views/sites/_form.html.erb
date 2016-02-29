@@ -11,6 +11,8 @@
 
   <%= f.text_field :host %>
 
+  <%= f.text_field :log_location %>
+
   <%= f.collection_check_boxes :contact_user_ids, current_user.organization.users, :id, :name, label: "Contacts" %>
 
   <%= f.submit "Save", class: "btn btn-primary active" %>

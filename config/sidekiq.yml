@@ -1,0 +1,9 @@
+---
+:concurrency: 25
+:pidfile: ./tmp/pids/sidekiq.pid
+:logfile: ./log/sidekiq.log
+:queues:
+  - default
+  - servermon
+  - mailers
+:daemon: true

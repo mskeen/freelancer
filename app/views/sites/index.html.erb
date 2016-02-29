@@ -13,7 +13,7 @@
 
   <tbody>
     <% @sites.each do |site| %>
-      <tr class="site-row <%= tracker_class(site) %>">
+      <tr class="site-row <%= site_class(site) %>">
         <td>
           <%= link_to site.name, site %>
         </td>
@@ -29,4 +29,4 @@
 
 <br>
 
-<%= link_to 'New Site', new_site_path, class: "btn btn-primary active " %>
+<%= link_to 'New Site Monitor', new_site_path, class: "btn btn-primary active " %>

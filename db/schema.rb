@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160228215759) do
+ActiveRecord::Schema.define(version: 20160229002553) do
 
   create_table "api_calls", force: :cascade do |t|
     t.integer  "api_key_id",  limit: 4
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20160228215759) do
     t.integer  "organization_id",   limit: 4,                  null: false
     t.integer  "user_id",           limit: 4,                  null: false
     t.string   "token",             limit: 255,                null: false
-    t.boolean  "is_active",         limit: 1,   default: true, null: false
+    t.boolean  "is_active",                     default: true, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "hourly_rate_limit", limit: 4,   default: 1000
@@ -67,8 +67,8 @@ ActiveRecord::Schema.define(version: 20160228215759) do
     t.integer  "status_cd",       limit: 4,   default: 1,     null: false
     t.datetime "last_ping_at"
     t.integer  "sort_order",      limit: 4,   default: 0,     null: false
-    t.boolean  "is_paused",       limit: 1,   default: false, null: false
-    t.boolean  "is_deleted",      limit: 1,   default: false, null: false
+    t.boolean  "is_paused",                   default: false, null: false
+    t.boolean  "is_deleted",                  default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "last_checked_at"
@@ -77,6 +77,17 @@ ActiveRecord::Schema.define(version: 20160228215759) do
 
   add_index "event_trackers", ["organization_id"], name: "index_event_trackers_on_organization_id", using: :btree
   add_index "event_trackers", ["user_id"], name: "index_event_trackers_on_user_id", using: :btree
+
+  create_table "log_monitors", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "site_id",    limit: 4
+    t.integer  "status_cd",  limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "log_monitors", ["site_id"], name: "index_log_monitors_on_site_id", using: :btree
+  add_index "log_monitors", ["user_id"], name: "index_log_monitors_on_user_id", using: :btree
 
   create_table "organizations", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -91,13 +102,14 @@ ActiveRecord::Schema.define(version: 20160228215759) do
     t.string   "name",            limit: 255
     t.string   "url",             limit: 255
     t.string   "host",            limit: 255
+    t.string   "log_location",    limit: 255
     t.string   "token",           limit: 255
     t.integer  "interval_cd",     limit: 4
     t.integer  "status_cd",       limit: 4
     t.integer  "ping_status_cd",  limit: 4
     t.datetime "last_checked_at"
     t.datetime "next_check_at"
-    t.boolean  "is_deleted",      limit: 1
+    t.boolean  "is_deleted"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
@@ -109,8 +121,8 @@ ActiveRecord::Schema.define(version: 20160228215759) do
     t.integer  "user_id",         limit: 4,                   null: false
     t.integer  "organization_id", limit: 4,                   null: false
     t.string   "name",            limit: 255,                 null: false
-    t.boolean  "is_shared",       limit: 1,   default: false, null: false
-    t.boolean  "is_active",       limit: 1,   default: true,  null: false
+    t.boolean  "is_shared",                   default: false, null: false
+    t.boolean  "is_active",                   default: true,  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -126,14 +138,14 @@ ActiveRecord::Schema.define(version: 20160228215759) do
     t.integer  "weight",               limit: 4,   default: 1,     null: false
     t.date     "due_date"
     t.integer  "frequency_cd",         limit: 4,   default: 0,     null: false
-    t.boolean  "is_active",            limit: 1,   default: true,  null: false
+    t.boolean  "is_active",                        default: true,  null: false
     t.integer  "created_by_user_id",   limit: 4,                   null: false
     t.datetime "completed_at"
     t.integer  "completed_by_user_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "spawned_task_id",      limit: 4
-    t.boolean  "send_reminder",        limit: 1,   default: false, null: false
+    t.boolean  "send_reminder",                    default: false, null: false
     t.integer  "reminder_lead_days",   limit: 4,   default: 1,     null: false
     t.datetime "reminder_sent_at"
   end
@@ -160,8 +172,8 @@ ActiveRecord::Schema.define(version: 20160228215759) do
     t.string   "name",                   limit: 255,                null: false
     t.integer  "organization_id",        limit: 4
     t.integer  "role_cd",                limit: 4,   default: 1
-    t.boolean  "is_active",              limit: 1,   default: true, null: false
-    t.boolean  "is_invited",             limit: 1,   default: true
+    t.boolean  "is_active",                          default: true, null: false
+    t.boolean  "is_invited",                         default: true
     t.integer  "created_by_user_id",     limit: 4
   end
 
@@ -169,6 +181,8 @@ ActiveRecord::Schema.define(version: 20160228215759) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "log_monitors", "sites"
+  add_foreign_key "log_monitors", "users"
   add_foreign_key "sites", "organizations"
   add_foreign_key "sites", "users"
 end
