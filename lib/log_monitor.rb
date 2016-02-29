@@ -1,9 +1,7 @@
 class LogMonitor < ActiveRecord::Base
   include LookupColumn
 
-  belongs_to :user
-  belongs_to :site
-  has_many :log_ips
+  attr_accessor :status_cd, :created_at
 
   lookup_group :status, :status_cd do
     option :pending,          1, 'Pending'

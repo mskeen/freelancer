@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229144305) do
+ActiveRecord::Schema.define(version: 20160228215759) do
 
   create_table "api_calls", force: :cascade do |t|
     t.integer  "api_key_id",  limit: 4
@@ -77,44 +77,6 @@ ActiveRecord::Schema.define(version: 20160229144305) do
 
   add_index "event_trackers", ["organization_id"], name: "index_event_trackers_on_organization_id", using: :btree
   add_index "event_trackers", ["user_id"], name: "index_event_trackers_on_user_id", using: :btree
-
-  create_table "log_entries", force: :cascade do |t|
-    t.integer  "log_ip_id",  limit: 4
-    t.datetime "logged_at"
-    t.string   "method",     limit: 255
-    t.string   "url",        limit: 255
-    t.string   "status",     limit: 255
-    t.string   "size",       limit: 255
-    t.string   "referrer",   limit: 255
-    t.string   "agent",      limit: 255
-    t.string   "status_msg", limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  add_index "log_entries", ["log_ip_id"], name: "index_log_entries_on_log_ip_id", using: :btree
-
-  create_table "log_ips", force: :cascade do |t|
-    t.integer  "log_monitor_id", limit: 4
-    t.datetime "last_hit"
-    t.string   "agent",          limit: 255
-    t.string   "referrer",       limit: 255
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-  end
-
-  add_index "log_ips", ["log_monitor_id"], name: "index_log_ips_on_log_monitor_id", using: :btree
-
-  create_table "log_monitors", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.integer  "site_id",    limit: 4
-    t.integer  "status_cd",  limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
-  add_index "log_monitors", ["site_id"], name: "index_log_monitors_on_site_id", using: :btree
-  add_index "log_monitors", ["user_id"], name: "index_log_monitors_on_user_id", using: :btree
 
   create_table "organizations", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -208,10 +170,6 @@ ActiveRecord::Schema.define(version: 20160229144305) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "log_entries", "log_ips"
-  add_foreign_key "log_ips", "log_monitors"
-  add_foreign_key "log_monitors", "sites"
-  add_foreign_key "log_monitors", "users"
   add_foreign_key "sites", "organizations"
   add_foreign_key "sites", "users"
 end
