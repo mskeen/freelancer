@@ -24,6 +24,7 @@ gem 'chart-js-rails'
 gem 'jbuilder', '~> 2.0'
 
 gem 'whenever', require: false
+gem 'redis', '~>3.2'
 gem 'sidekiq', '~> 4.1'
 
 group :doc do
