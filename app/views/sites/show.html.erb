@@ -20,7 +20,6 @@
       <tr>
         <th></th>
         <th>Status</th>
-        <th>Created</th>
       </tr>
     </thead>
 
@@ -28,13 +27,10 @@
       <% @site.log_monitors.order(id: :desc).each do |mon| %>
         <tr>
           <td>
-            <%= mon.id %>
+            <%= link_to standard_datetime(mon.created_at), [@site, mon] %>
           </td>
           <td>
             <%= mon.status.display %>
-          </td>
-          <td>
-            <%= mon.created_at %>
           </td>
         </tr>
       <% end %>

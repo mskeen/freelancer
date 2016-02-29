@@ -14,6 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/dump.rdb
 
 # don't include the real secrets.yml
 /config/secrets.yml
