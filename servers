@@ -1,0 +1,68 @@
+#!/bin/bash
+
+running() {
+  rpid "$1" > /dev/null
+}
+
+rpid() {
+  pgrep -f "$1" 2> /dev/null
+}
+
+start() {
+  procname=$1; shift
+  name=$1; shift
+  if ! running "$procname"; then
+      "$@"
+  else
+      echo "$name already running"
+  fi
+}
+
+stop() {
+  procname=$1; shift
+  name=$1; shift
+  if running "$procname"; then
+      "$@"
+  else
+      echo "$name not running"
+  fi
+}
+
+status() {
+  procname=$1
+  name=$2
+  if running "$procname"; then
+      echo "$name running"
+  else
+      echo "$name not running"
+  fi
+}
+
+CMD=$1
+TARGET=$2
+if [ -z "$1" ]; then
+  CMD="status"
+fi
+
+if [ -z "$2" ]; then
+  TARGET="all"
+fi
+
+
+
+if [ "$CMD" = "status" ]; then
+  status redis "Redis Daemon"
+  status sidekiq "Sidekiq"
+elif [ "$CMD" = "start" ]; then
+  echo start
+elif [ "$CMD" = "stop" ]; then
+  echo stop
+elif [ "$CMD" = "restart" ]; then
+  echo restart
+else
+  echo Unknown command.  Use: status, start, stop, or restart.
+fi
+
+# echo Command: $CMD $TARGET
+
+# sidekiqctl stop ./tmp/pids/sidekiq.pid 60
