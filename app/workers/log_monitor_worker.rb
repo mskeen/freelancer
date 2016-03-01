@@ -26,40 +26,51 @@ class LogMonitorWorker
   end
 
   def process_line(log_line)
-    m = log_line.match(/^(?<ip>[\d\.]+) - - \[(?<time>[\s\S]+)\]/)
-    ip = m['ip']
-    tm = DateTime.strptime(m['time'], "%d/%b/%Y:%H:%M:%S %z")
+    if m = log_line.match(/^(?<ip>[\d\.]+) - - \[(?<time>[\s\S]+)\]/)
+      ip = m['ip']
+      tm = DateTime.strptime(m['time'], "%d/%b/%Y:%H:%M:%S %z")
 
-    if log_line.match(/] "-" 408/)
-      add_status_entry(ip, tm, "** Timed Out **")
-    elsif m = log_line.match(/(?<method>GET|POST|HEAD) (?<url>.+) HTTP\/\d\.\d" (?<status>\d+) (?<size>\d+) "(?<referrer>.+)" "(?<agent>.+)"/)
-      keep = true
-      f = m["url"].split('?')[0]
-      IGNORE.each { |i| if f.match(i) then keep = false end }
-      if keep
-        add_entry(ip, tm, m['method'], m['url'], m['status'], m['size'], m['referrer'], m['agent'])
+      if log_line.match(/] "-" 408/)
+        add_status_entry(ip, tm, "** Timed Out **")
+      elsif m = log_line.match(/(?<method>GET|POST|HEAD) (?<url>.+) HTTP\/\d\.\d" (?<status>\d+) (?<size>\d+) "(?<referrer>.*)" "(?<agent>.*)"/)
+        keep = true
+        f = m["url"].split('?')[0]
+        IGNORE.each { |i| if f.match(i) then keep = false end }
+        if keep
+          add_entry(ip, tm, m['method'], m['url'], m['status'], m['size'], m['referrer'], m['agent'])
+        end
+      else
+        puts "Mismatched entry: #{log_line}"
       end
+      @ctr += 1
     else
-      puts "Mismatched entry: #{log_line}"
+      puts "Unprocessed line: #{log_line}"
     end
   end
 
   def add_status_entry(ip, tm, msg)
-    log_ip = @mon.log_ips.find_or_create_by(ip: ip)
-    log_ip.last_hit = tm
-    log_ip.save
-    log_ip.log_entries.create(logged_at: tm, status_msg: msg)
+    log_ip = find_or_create_log_ip(ip)
+    log_ip.update(last_hit: tm)
+    entry = LogEntry.create(logged_at: tm, status_msg: msg)
+    log_ip.log_entries.add(entry)
   end
 
   def add_entry(ip, tm, method, url, status, size, referrer, agent)
-    log_ip = @mon.log_ips.find_or_create_by(ip: ip)
-    log_ip.last_hit = tm
-    log_ip.agent = agent
-    log_ip.referrer = referrer
-    log_ip.save
-    log_ip.log_entries.create(
-      logged_at: tm, method: method, url: url, status: status, size: size,
-      referrer: referrer, agent: agent
-    )
+    log_ip = find_or_create_log_ip(ip)
+    log_ip.update(last_hit: tm, agent: agent, referrer: referrer)
+
+    entry = LogEntry.create(logged_at: tm, method: method,
+                            url: url, status: status, size: size,
+                            referrer: referrer, agent: agent)
+    log_ip.log_entries.add(entry)
+  end
+
+  def find_or_create_log_ip(ip)
+    log_ip = @mon.log_ips.find(ip: ip).first
+    if !log_ip
+      log_ip = LogIp.create(ip: ip)
+      @mon.log_ips.add(log_ip)
+    end
+    log_ip
   end
 end

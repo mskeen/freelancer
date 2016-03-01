@@ -8,5 +8,4 @@ class LogEntry < Ohm::Model
   attribute :agent
   attribute :status_msg
   reference :log_ip, :LogIp
-  index :ip
 end
