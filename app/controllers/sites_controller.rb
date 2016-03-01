@@ -9,6 +9,7 @@ class SitesController < ApplicationController
   end
 
   def show
+    @log_monitors = LogMonitor.find(site_id: @site.token)
     respond_with(@site)
   end
 

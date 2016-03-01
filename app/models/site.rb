@@ -6,7 +6,6 @@ class Site < ActiveRecord::Base
   belongs_to :user
   belongs_to :organization
   has_many :contacts, as: :alertable
-  has_many :log_monitors
 
   validates :name, presence: true
   validates :interval_cd, presence: true

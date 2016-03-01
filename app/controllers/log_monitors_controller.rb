@@ -10,11 +10,12 @@ class LogMonitorsController < ApplicationController
   end
 
   def new
-    @log_monitor = current_user.log_monitors.create(
-      site: @site,
+    @log_monitor = LogMonitor.create(
+      site_id: @site.token,
       status: LogMonitor.status(:pending)
     )
-    redirect_to [@site, @log_monitor]
+    LogMonitorWorker.perform_async(@log_monitor.id)
+    redirect_to site_log_monitor_path(@site.token, @log_monitor.id)
   end
 
   def destroy
@@ -29,7 +30,7 @@ class LogMonitorsController < ApplicationController
   end
 
   def set_log_monitor
-    @log_monitor = @site.log_monitors.find(params[:id])
+    @log_monitor = LogMonitor[params[:id]]
   end
 
   def site_params

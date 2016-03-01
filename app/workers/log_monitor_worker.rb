@@ -5,11 +5,11 @@ class LogMonitorWorker
 
   def perform(log_monitor_id)
     @ctr = 1
-    @mon = LogMonitor.find(log_monitor_id)
-    monitor_log_file(@mon.site.access_log_cmd)
+    @mon = LogMonitor[log_monitor_id]
+    @site = Site.where(token: @mon.site_id).first
+    monitor_log_file(@site.access_log_cmd)
     puts "Done! #{@ctr} lines processed."
-    @mon.status = LogMonitor.status(:complete)
-    @mon.save
+    @mon.update status: LogMonitor.status(:complete)
   end
 
   def monitor_log_file(cmd)
