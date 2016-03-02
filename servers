@@ -51,9 +51,9 @@ status() {
   procname=$1
   name=$2
   if running "$procname"; then
-      echo "$name running"
+    echo "$name status: running"
   else
-      echo "$name not running"
+    echo "$name status: stopped"
   fi
 }
 
@@ -61,6 +61,7 @@ CMD=$1
 TARGET=$2
 if [ -z "$1" ]; then
   CMD="status"
+  echo "Commands: status, start, stop, restart, and stop redis"
 fi
 
 if [ -z "$2" ]; then
