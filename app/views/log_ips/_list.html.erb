@@ -1,0 +1,28 @@
+<div id="monitor-details">
+  <table class="table table-condensed table-hover">
+    <tr>
+      <th width="100px">Date</th>
+      <th width="60px">Status</th>
+      <th width="60px">Size</th>
+      <th>Request</th>
+    </tr>
+    <% curdate = "" %>
+    <% log_ip.log_entries.sort_by(:logged_at, order: "DESC ALPHA").each do |entry| %>
+      <% if curdate != entry.logged_at[0..9] %>
+        <% curdate = entry.logged_at[0..9] %>
+        <tr>
+          <td><strong><%= curdate %></strong></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td><%= entry.logged_at[11..-1] %></td>
+        <td><%= entry.status %></td>
+        <td><%= entry.size %></td>
+        <td><%= "#{entry.method} #{entry.url}" %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

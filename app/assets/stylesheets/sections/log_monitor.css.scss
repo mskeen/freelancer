@@ -1,0 +1,11 @@
+body.log_monitors {
+  tr.selected {
+    background-color: #2fa4e7;
+    color: white;
+    &:hover { background-color: #2fa4e7; }
+    td {
+      background-color: #2fa4e7;
+      &:hover { background-color: #2fa4e7; }
+    }
+  }
+}

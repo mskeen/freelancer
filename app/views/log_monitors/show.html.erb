@@ -1,8 +1,8 @@
 <% title "#{@site.name} - Log Monitor" %>
 <% heading "#{@site.name} - Log Monitor" %>
 
-<div class="row">
-  <div class="col-md-6">
+<div class="row" style="width:100%">
+  <div id="entry-column" class="col-md-5" style="position:fixed; height: 100%; overflow-y: scroll;">
     <h3>Status</h3>
     <p>
       <strong><%= @log_monitor.status.display %></strong>
@@ -21,7 +21,7 @@
 
       <tbody>
       <% @log_monitor.log_ips.sort_by(:hits, order: "DESC").each do |log_ip| %>
-        <tr class="ip-row" data-ip-id="<%= log_ip.id %>">
+        <tr id="log-ip-<%= log_ip.id %>" class="ip-row" data-ip-id="<%= log_ip.id %>">
           <td><%= log_ip.ip %></td>
           <td><%= log_ip.hits %></td>
           <td><%= log_ip.agent %></td>
@@ -30,51 +30,11 @@
       </tbody>
     </table>
   </div>
-  <div class="col-md-6" style="position:fixed; margin-left: 50%; height: 100%; overflow-y: scroll; ">
+  <div id="ip-column" class="col-md-6" style="width: 47%; position:fixed; margin-left: 43%; height: 100%; overflow-y: scroll; ">
     <h3>Details</h3>
 
-    <p>stuff goes here</p>
-    <p>stuff goes here</p>
-    <p>stuff goes here</p>
-    <p>stuff goes here</p>
-    <p>stuff goes here</p>
-    <p>stuff goes here</p>
-    <p>stuff goes here</p>
-    <p>stuff goes here</p>
-    <p>stuff goes here3</p>
-    <p>stuff goes here3</p>
-    <p>stuff goes here3</p>
-    <p>stuff goes here3</p>
-    <p>stuff goes here3</p>
-    <p>stuff goes here3</p>
-    <p>stuff goes here3</p>
-    <p>stuff goes here3</p>
-    <p>stuff goes here4</p>
-    <p>stuff goes here4</p>
-    <p>stuff goes here4</p>
-    <p>stuff goes here4</p>
-    <p>stuff goes here4</p>
-    <p>stuff goes here4</p>
-    <p>stuff goes here4</p>
-    <p>stuff goes here4</p>
-    <p>stuff goes here5</p>
-    <p>stuff goes here5</p>
-    <p>stuff goes here5</p>
-    <p>stuff goes here5</p>
-    <p>stuff goes here5</p>
-    <p>stuff goes here6</p>
-    <p>stuff goes here6</p>
-    <p>stuff goes here6</p>
-    <p>stuff goes here6</p>
-    <p>stuff goes here6</p>
-    <p>stuff goes here6</p>
-    <p>stuff goes here5</p>
-    <p>stuff goes here7</p>
-    <p>stuff goes here7</p>
-    <p>stuff goes here7</p>
-    <p>stuff goes here7</p>
-    <p>stuff goes here7</p>
-    <p>stuff goes here7</p>
+    <div id="monitor-details">
+    </div>
   </div>
 </div>
 
