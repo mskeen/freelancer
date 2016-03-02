@@ -46,8 +46,12 @@ class Site < ActiveRecord::Base
       (last_checked_at + interval.increment < Time.zone.now)
   end
 
-  def access_log_cmd
-    "ssh #{host} \"cat #{log_location}\""
+  def access_log_cmd(log_type)
+    if log_type == "cat"
+      "ssh #{host} \"cat #{log_location}\""
+    elsif log_type == "tail"
+      "ssh #{host} \"tail -f #{log_location}\""
+    end
   end
 
   private

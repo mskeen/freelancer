@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   resources :users
   resources :event_trackers
   resources :sites do
-    resources :log_monitors, only: [:show, :new, :destroy]
+    resources :log_monitors, only: [:show, :new, :destroy] do
+      match "cancel", to: "log_monitors#cancel", via: :post, as: "cancel", on: :member
+    end
   end
   resources :log_ips
   resources :tasks, only: [:index, :create, :edit, :update, :destroy] do

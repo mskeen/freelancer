@@ -1,21 +1,27 @@
 class LogMonitorsController < ApplicationController
   before_filter :authenticate_user!
-  respond_to :html
+  respond_to :html, :js
 
   before_action :set_site
-  before_action :set_log_monitor, only: [:show, :destroy]
+  before_action :set_log_monitor, only: [:show, :destroy, :cancel]
 
   def show
-    respond_with(@log_monitor)
   end
 
   def new
     @log_monitor = LogMonitor.create(
+      created_at: Time.now.to_s(:db),
+      log_type: (params[:type] || "cat"),
       site_id: @site.token,
-      status: LogMonitor.status(:pending)
+      status: "pending"
     )
     LogMonitorWorker.perform_async(@log_monitor.id)
     redirect_to site_log_monitor_path(@site.token, @log_monitor.id)
+  end
+
+  def cancel
+    @log_monitor.update(status: "cancelled")
+    render :show
   end
 
   def destroy

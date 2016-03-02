@@ -1,0 +1,33 @@
+<div id="ip-list">
+  <h3>Status</h3>
+  <p>
+    <span id="monitor-status" data-id="<%= log_monitor.id %>" data-site-id="<%= log_monitor.site_id %>" data-status="<%= log_monitor.status %>">
+      <strong><%= log_monitor.status.capitalize %></strong>
+    </span>
+    <% if ["pending", "processing"].include? log_monitor.status %>
+      <%= button_to "Cancel", cancel_site_log_monitor_path(log_monitor.site_id, log_monitor.id), remote: true %>
+    <% end %>
+  </p>
+
+  <h3>Entries</h3>
+
+  <table id="monitor-ips" class="table table-condensed table-hover">
+    <thead>
+      <tr>
+        <th>IP Address</th>
+        <th>Hits</th>
+        <th>Agent</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    <% log_monitor.log_ips.sort_by(:hits, order: "DESC").each do |log_ip| %>
+      <tr id="log-ip-<%= log_ip.id %>" class="ip-row" data-ip-id="<%= log_ip.id %>">
+        <td><%= log_ip.ip %></td>
+        <td><%= log_ip.hits %></td>
+        <td><%= log_ip.agent %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

@@ -2,14 +2,25 @@ class LogMonitorWorker
   include Sidekiq::Worker
 
   IGNORE = [/.css$/, /.js$/, /.png$/, /.jpg$/, /.jpeg$/, /.gif$/, /.ico$/]
+  DEFAULT_TAIL_LENGTH = 10 * 60 # 10 minutes
 
   def perform(log_monitor_id)
-    @ctr = 1
+    @log_monitor_id = log_monitor_id
     @mon = LogMonitor[log_monitor_id]
+    return if @mon.status != "pending"
+    @ctr = 1
+    @done = false
+    @cancelled = false
     @site = Site.where(token: @mon.site_id).first
-    monitor_log_file(@site.access_log_cmd)
+    @mon.update status: "processing"
+    Thread.new { check_monitor_status }
+    monitor_log_file(@site.access_log_cmd(@mon.log_type))
     puts "Done! #{@ctr} lines processed."
-    @mon.update status: LogMonitor.status(:complete)
+    if @cancelled
+      @mon.update status: "cancelled"
+    else
+      @mon.update status: "complete"
+    end
   end
 
   def monitor_log_file(cmd)
@@ -19,6 +30,7 @@ class LogMonitorWorker
         unless log_line.match(/internal dummy connection/)
           process_line(log_line)
         end
+        return if @done || @cancelled
       end
     end
   end
@@ -71,5 +83,21 @@ class LogMonitorWorker
     end
     log_ip.incr :hits
     log_ip
+  end
+
+  def check_monitor_status
+    loop do
+      sleep(1)
+      puts "Checking for cancelled status"
+      @mon = LogMonitor[@log_monitor_id]
+      if @mon.status == "cancelled"
+        @cancelled = true
+      end
+      if @mon.log_type == "tail" &&
+        ((Time.now.to_s(:db).to_datetime - mon.created_at.to_datetime) * 24 * 60 * 60).to_i > DEFAULT_TAIL_LENGTH
+        @done = true
+      end
+      break if @done || @cancelled
+    end
   end
 end

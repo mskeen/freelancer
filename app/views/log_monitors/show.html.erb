@@ -2,35 +2,10 @@
 <% heading "#{@site.name} - Log Monitor" %>
 
 <div class="row" style="width:100%">
-  <div id="entry-column" class="col-md-5" style="position:fixed; height: 100%; overflow-y: scroll;">
-    <h3>Status</h3>
-    <p>
-      <strong><%= @log_monitor.status.display %></strong>
-    </p>
-
-    <h3>Entries</h3>
-
-    <table id="monitor-ips" class="table table-condensed table-hover">
-      <thead>
-        <tr>
-          <th>IP Address</th>
-          <th>Hits</th>
-          <th>Agent</th>
-        </tr>
-      </thead>
-
-      <tbody>
-      <% @log_monitor.log_ips.sort_by(:hits, order: "DESC").each do |log_ip| %>
-        <tr id="log-ip-<%= log_ip.id %>" class="ip-row" data-ip-id="<%= log_ip.id %>">
-          <td><%= log_ip.ip %></td>
-          <td><%= log_ip.hits %></td>
-          <td><%= log_ip.agent %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
+  <div id="ip-column" class="col-md-5" style="position:fixed; height: 100%; overflow-y: scroll;">
+    <%= render partial: "ip_list", locals: { log_monitor: @log_monitor } %>
   </div>
-  <div id="ip-column" class="col-md-6" style="width: 47%; position:fixed; margin-left: 43%; height: 100%; overflow-y: scroll; ">
+  <div id="entry-column" class="col-md-6" style="width: 47%; position:fixed; margin-left: 43%; height: 100%; overflow-y: scroll; ">
     <h3>Details</h3>
 
     <div id="monitor-details">
