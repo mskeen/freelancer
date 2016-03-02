@@ -1,30 +1,49 @@
 #!/bin/bash
 
 running() {
-  rpid "$1" > /dev/null
+  [ -f "./tmp/pids/$1.pid" ]
 }
 
-rpid() {
-  pgrep -f "$1" 2> /dev/null
-}
-
-start() {
-  procname=$1; shift
-  name=$1; shift
-  if ! running "$procname"; then
-      "$@"
+start_red() {
+  if ! running "redis"; then
+    echo "Starting Redis"
+    redis-server ./config/redis.conf
+    sleep 1.5s
   else
-      echo "$name already running"
+    echo "Redis already running"
   fi
 }
 
-stop() {
-  procname=$1; shift
-  name=$1; shift
-  if running "$procname"; then
-      "$@"
+stop_red() {
+  if running "redis"; then
+    echo "Stopping Redis"
+    cat ./tmp/pids/redis.pid | xargs kill
   else
-      echo "$name not running"
+    echo "Redis already stopped"
+  fi
+}
+
+start_sk() {
+  if ! running "redis"; then
+    echo "Sidekiq requires Redis"
+    start_red
+  fi
+
+  if ! running "sidekiq"; then
+    echo "Starting Sidekiq"
+    bundle exec sidekiq -C config/sidekiq.yml
+  else
+    echo "Sidekiq already running"
+  fi
+}
+
+stop_sk() {
+  if running "sidekiq"; then
+    echo "Stopping Sidekiq"
+    sidekiqctl quiet ./tmp/pids/sidekiq.pid
+    sidekiqctl stop ./tmp/pids/sidekiq.pid 5
+  else
+    echo "Sidekiq already stopped"
   fi
 }
 
@@ -48,21 +67,23 @@ if [ -z "$2" ]; then
   TARGET="all"
 fi
 
-
-
 if [ "$CMD" = "status" ]; then
   status redis "Redis Daemon"
   status sidekiq "Sidekiq"
 elif [ "$CMD" = "start" ]; then
-  echo start
+  start_red
+  start_sk
 elif [ "$CMD" = "stop" ]; then
-  echo stop
+  if [ "$TARGET" = "redis" ]; then
+    stop_red
+  else
+    stop_sk
+  fi
 elif [ "$CMD" = "restart" ]; then
-  echo restart
+  stop_sk
+  start_sk
 else
   echo Unknown command.  Use: status, start, stop, or restart.
 fi
 
 # echo Command: $CMD $TARGET
-
-# sidekiqctl stop ./tmp/pids/sidekiq.pid 60
