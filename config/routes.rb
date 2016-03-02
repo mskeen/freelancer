@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :sites do
     resources :log_monitors, only: [:show, :new, :destroy]
   end
+  resources :log_ips
   resources :tasks, only: [:index, :create, :edit, :update, :destroy] do
     match 'new/:task_category_id', to: 'tasks#new', via: :get, as: "new", on: :collection
     resource :completion, controller: 'task_completions', only: [:new, :destroy]

@@ -10,7 +10,7 @@
 
     <h3>Entries</h3>
 
-    <table class="table table-condensed table-hover">
+    <table id="monitor-ips" class="table table-condensed table-hover">
       <thead>
         <tr>
           <th>IP Address</th>
@@ -21,7 +21,7 @@
 
       <tbody>
       <% @log_monitor.log_ips.sort_by(:hits, order: "DESC").each do |log_ip| %>
-        <tr>
+        <tr class="ip-row" data-ip-id="<%= log_ip.id %>">
           <td><%= log_ip.ip %></td>
           <td><%= log_ip.hits %></td>
           <td><%= log_ip.agent %></td>
