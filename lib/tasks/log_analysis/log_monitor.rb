@@ -13,5 +13,4 @@ class LogMonitor < Ohm::Model
     option :cancelled,        3, 'Cancelled'
     option :complete,         4, 'Complete'
   end
-
 end

@@ -18,8 +18,6 @@ class LogMonitorWorker
       io.each do |log_line|
         unless log_line.match(/internal dummy connection/)
           process_line(log_line)
-          # exit if @done
-          # break if @paused
         end
       end
     end
@@ -32,7 +30,7 @@ class LogMonitorWorker
 
       if log_line.match(/] "-" 408/)
         add_status_entry(ip, tm, "** Timed Out **")
-      elsif m = log_line.match(/(?<method>GET|POST|HEAD) (?<url>.+) HTTP\/\d\.\d" (?<status>\d+) (?<size>\d+) "(?<referrer>.*)" "(?<agent>.*)"/)
+      elsif m = log_line.match(/(?<method>GET|POST|HEAD|OPTIONS) (?<url>.+) HTTP\/\d\.\d" (?<status>\d+) (?<size>\d+) "(?<referrer>.*)" "(?<agent>.*)"/)
         keep = true
         f = m["url"].split('?')[0]
         IGNORE.each { |i| if f.match(i) then keep = false end }
@@ -71,6 +69,7 @@ class LogMonitorWorker
       log_ip = LogIp.create(ip: ip)
       @mon.log_ips.add(log_ip)
     end
+    log_ip.incr :hits
     log_ip
   end
 end
