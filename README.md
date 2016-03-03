@@ -11,5 +11,10 @@ Schedule cron tasks:
 
 ## Todo
 
+* Log Monitors:
+    - Expire redis records
+    - Store agent on the log_ip only
+    - Block agent/ip
+
 * email reminder service?  i.e. send this email to me again in 5 days
 

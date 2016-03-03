@@ -5,7 +5,6 @@ class LogEntry < Ohm::Model
   attribute :status
   attribute :size
   attribute :referrer
-  attribute :agent
   attribute :status_msg
   reference :log_ip, :LogIp
 end

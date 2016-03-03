@@ -67,11 +67,11 @@ class LogMonitorWorker
 
   def add_entry(ip, tm, method, url, status, size, referrer, agent)
     log_ip = find_or_create_log_ip(ip)
-    log_ip.update(last_hit: tm.to_s(:db), agent: agent, referrer: referrer)
+    log_ip.update(last_hit: tm.to_s(:db), agent: agent)
 
     entry = LogEntry.create(logged_at: tm.to_s(:db), method: method,
                             url: url, status: status, size: size,
-                            referrer: referrer, agent: agent)
+                            referrer: referrer)
     log_ip.log_entries.add(entry)
   end
 
@@ -81,6 +81,7 @@ class LogMonitorWorker
       log_ip = LogIp.create(ip: ip)
       @mon.log_ips.add(log_ip)
     end
+    @mon.incr :hits
     log_ip.incr :hits
     log_ip
   end
