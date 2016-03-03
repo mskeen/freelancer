@@ -4,6 +4,7 @@ class LogIpsController < ApplicationController
 
   def show
     @log_ip = LogIp[params[:id]]
+    @log_ip.ip_lookup
   end
 
 end

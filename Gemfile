@@ -26,6 +26,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'whenever', require: false
 gem 'ohm', '~>2.3'
 gem 'sidekiq', '~> 4.1'
+gem 'httparty'
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'

@@ -19,6 +19,7 @@
     <thead>
       <tr>
         <th></th>
+        <th>Hits</th>
         <th>Status</th>
       </tr>
     </thead>
@@ -28,6 +29,9 @@
         <tr>
           <td>
             <%= link_to mon.created_at, site_log_monitor_path(@site.token, mon.id) %>
+          </td>
+          <td>
+            <%= mon.hits %>
           </td>
           <td>
             <%= mon.status %>
