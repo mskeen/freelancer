@@ -7,7 +7,13 @@
     <% if ["pending", "processing"].include? log_monitor.status %>
       <%= button_to "Cancel", cancel_site_log_monitor_path(log_monitor.site_id, log_monitor.id), remote: true %>
     <% end %>
+
   </p>
+  <% if log_monitor.log_type == "cat" && !log_monitor.log_filter.blank? %>
+    <p>
+      <strong>Filter: </strong>  <%= log_monitor.log_filter %>
+    </p>
+  <% end %>
 
   <h3>Entries</h3>
 

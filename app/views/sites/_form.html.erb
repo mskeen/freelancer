@@ -13,6 +13,8 @@
 
   <%= f.text_field :log_location %>
 
+  <%= f.text_field :log_filter, label: "Filter (i.e. 16/Mar/2016:22)" %>
+
   <%= f.collection_check_boxes :contact_user_ids, current_user.organization.users, :id, :name, label: "Contacts" %>
 
   <%= f.submit "Save", class: "btn btn-primary active" %>

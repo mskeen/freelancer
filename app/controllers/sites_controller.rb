@@ -50,7 +50,7 @@ class SitesController < ApplicationController
 
   def site_params
     params.require(:site).permit(
-      :name, :url, :host, :log_location, :interval_cd,
+      :name, :url, :host, :log_location, :interval_cd, :log_filter,
       contact_user_ids: []
     )
   end

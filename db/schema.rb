@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160228215759) do
+ActiveRecord::Schema.define(version: 20160317133325) do
 
   create_table "api_calls", force: :cascade do |t|
     t.integer  "api_key_id",  limit: 4
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 20160228215759) do
     t.boolean  "is_deleted"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.string   "log_filter",      limit: 255
   end
 
   add_index "sites", ["organization_id"], name: "index_sites_on_organization_id", using: :btree

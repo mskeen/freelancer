@@ -12,6 +12,7 @@ class LogMonitorsController < ApplicationController
     @log_monitor = LogMonitor.create(
       created_at: Time.now.to_s(:db),
       log_type: (params[:type] || "cat"),
+      log_filter: @site.log_filter,
       site_id: @site.token,
       status: "pending"
     )

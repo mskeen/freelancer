@@ -48,9 +48,17 @@ class Site < ActiveRecord::Base
 
   def access_log_cmd(log_type)
     if log_type == "cat"
-      "ssh #{host} \"cat #{log_location}\""
+      "ssh #{host} \"cat #{log_location}\" #{filter_cmd}"
     elsif log_type == "tail"
       "ssh #{host} \"tail -f #{log_location}\""
+    end
+  end
+
+  def filter_cmd
+    if log_filter.blank?
+      ""
+    else
+      " | grep -i \"#{log_filter}\""
     end
   end
 

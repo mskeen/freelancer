@@ -1,5 +1,6 @@
 class LogMonitor < Ohm::Model
   attribute :log_type
+  attribute :log_filter
   attribute :site_id
   attribute :status
   attribute :created_at
